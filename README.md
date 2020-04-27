@@ -1,4 +1,4 @@
-# MUT
+# MUP
 
 ## Music Unite People
 
