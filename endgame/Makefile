@@ -1,19 +1,24 @@
-# Usage:
-# make          # compile all binary
+NAME = endgame
 
-BINARY=endgame
+SRC = src/.c \
+	src/.c \
+	src/.c \
 
-C_FLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic -I./inc
+SDL2 = -I ./Frameworks/SDL2.framework/Versions/A/Header -F ./Frameworks -framework SDL2
+SDL2_IMAGE = -I ./Frameworks/SDL2_image.framework/Versions/A/Header -F ./Frameworks/ -framework SDL2_image
+SDL2_TTF = -I ./Frameworks/SDL2_ttf.framework/Versions/A/Headers -F ./Frameworks/ -framework SDL2_ttf
 
-all: ${BINARY}
+INC = inc/header.h
 
-${BINARY}:
-	@clang ${C_FLAGS} ./src/*.c ./src/minilib/*.c -o ${BINARY}
+CC = 
+CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
-clean:
-	@rm -f *.o
-
+all: install clean
+install:
+	@clang ${CFLAGS} $(SRC) -o ${NAME} ${SDL2} ${SDL2_IMAGE} ${SDL2_TTF} -rpath ./frameworks -I $(INC)
 uninstall: clean
-	@rm -f ${BINARY}
+	rm -rf ${NAME}
+clean:
+	rm -rf header.h
+reinstall: all
 
-reinstall: uninstall all
