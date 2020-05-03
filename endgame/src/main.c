@@ -1,8 +1,17 @@
+#include "header.h"
 
-int main(int argc, char *argv[]) {
+int main() {
+    App *app = malloc(sizeof(App));
+    t_entity *player = malloc(sizeof(t_entity));
+    t_entity *not = malloc(sizeof(t_entity));
 
-    if (argc == 0)
-        return 0;
-    argv++;
+    initSDL(app, player, not);
+
+//    SDL_DestroyTexture(player->texture);
+//    SDL_DestroyTexture(not->texture);
+    SDL_DestroyRenderer(app->renderer);
+    SDL_DestroyWindow(app->window);
+    SDL_Quit();
+
     return 0;
 }
