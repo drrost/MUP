@@ -8,13 +8,13 @@ int main() {
     init_sdl(app);
 
     present_logo_scene();
+    show_menu(app->renderer);
 
     t_entity *player = malloc(sizeof(t_entity));
     new_player(app, player);
 
 //    t_entity *not = malloc(sizeof(t_entity));
 
-//    show_menu(app->renderer);
 //    create_note(app->renderer, not->texture);
 
 
