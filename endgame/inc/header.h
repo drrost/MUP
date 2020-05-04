@@ -18,6 +18,7 @@
 #include <math.h>
 #include <time.h>
 #include <SDL2/SDL.h>
+//#include <SDL_image.h>
 #include <SDL2/SDL_image.h>
 //#include <SDL2/SDL_ttf.h>
 
@@ -38,7 +39,7 @@ typedef struct s_entity {
 } t_entity;
 
 void new_player(App *app, t_entity *player);
-void init_sdl(App *app, t_entity *player, t_entity *not);
+void init_sdl(App *app);
 t_entity *create_note(SDL_Renderer *renderer, char *texture);
 void cleanup(App *app);
 void note_falling(t_entity *note, int *level, int *score);

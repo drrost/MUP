@@ -3,8 +3,7 @@
 //
 #include "header.h"
 
-void init_sdl(App *app, t_entity *player, t_entity *not) {
-    not++;
+void init_sdl(App *app) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         printf("Couldn't initialize SDL: %s\n", SDL_GetError());
         exit(1);
@@ -23,6 +22,4 @@ void init_sdl(App *app, t_entity *player, t_entity *not) {
         printf("Failed to create renderer: %s\n", SDL_GetError());
         exit(1);
     }
-//    create_note(app->renderer, not->texture);
-    new_player(app, player);
 }
