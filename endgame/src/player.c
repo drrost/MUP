@@ -9,17 +9,17 @@ void path_for_res(const char *file_name, char *path) {
 
     char *paths[] = {
             "../MUP/endgame/resources/",
+            "../resources/",
             "./resources/" };
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
+        strcpy(path, paths[i]);
+        strcat(path, file_name);
         int fd = open(paths[i], O_RDONLY);
-        if (fd != -1)
-            strcpy(path, paths[i]);
-        close(fd);
+        if (fd != -1) {
+            close(fd);
+            return;
+        }
     }
-
-//    strcpy(path, "../MUP/endgame/resources/");
-    strcat(path, file_name);
-
 }
 
 void new_player(App *app, t_entity *player) {
