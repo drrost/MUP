@@ -10,7 +10,7 @@ NAME = endgame
 
 all: install clean
 install:
-	cp src/*.c inc/*.h .
+	cp src/*.c src/util/*.c inc/*.h .
 	${CC} ${CFLAG} *.c -o ${NAME} ${SDL2} ${SDL2_IMAGE} ${SDL2_TTF} \
 	${SDL2_MIX} -rpath ./frameworks
 uninstall:

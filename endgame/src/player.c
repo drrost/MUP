@@ -1,25 +1,4 @@
-#include <fcntl.h>
 #include "header.h"
-
-void path_for_res(const char *file_name, char *path) {
-    // Kindly left for Karina
-//    strcpy(path, "../resources/");
-//    strcat(path, file_name);
-
-    char *paths[] = {
-            "../MUP/endgame/resources/",
-            "../resources/",
-            "./resources/" };
-    for (int i = 0; i < 3; i++) {
-        strcpy(path, paths[i]);
-        strcat(path, file_name);
-        int fd = open(paths[i], O_RDONLY);
-        if (fd != -1) {
-            close(fd);
-            return;
-        }
-    }
-}
 
 void new_player(App *app, t_entity *player) {
     //load the image into memory using SDL library function
@@ -86,8 +65,8 @@ void new_player(App *app, t_entity *player) {
 //set to 1 when window close button is pressed
     int close_requested = 0;
     //Start the music
-    //load_music(player);
-    //Mix_PlayMusic(player->level_song, -1);
+    load_music(player);
+    Mix_PlayMusic(player->level_song, -1);
 
     //animation loop
     while (!close_requested) {

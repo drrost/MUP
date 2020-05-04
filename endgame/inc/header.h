@@ -51,5 +51,6 @@ t_entity *create_note(SDL_Renderer *renderer, char *texture);
 void cleanup(App *app);
 void note_falling(t_entity *note, int *level, int *score);
 int show_menu(SDL_Renderer *renderer);
+void path_for_res(const char *file_name, char *path);
 
 #endif
