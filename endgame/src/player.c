@@ -87,6 +87,9 @@ void new_player(App *app, t_entity *player) {
     //animation loop
     while (!close_requested) {
         SDL_Event event;
+	int flip;
+	float angle = 180.0f; //set the angle
+	SDL_RendererFlip rotate = SDL_FLIP_VERTICAL;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -97,10 +100,12 @@ void new_player(App *app, t_entity *player) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
                             left = 1;
+			    flip = 1;
                             break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
                             right = 1;
+			    flip = 0;
                             break;
                         default:
                             break;
@@ -147,7 +152,11 @@ void new_player(App *app, t_entity *player) {
 
         //draw the image to the window
         SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-        SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
+	if (flip != 1) {
+	  SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
+	} else {
+	  SDL_RenderCopyEx(app->renderer, player->texture, NULL, &dest, angle, NULL, rotate);
+	}
         SDL_RenderPresent(app->renderer);
 
         //wait 1/60th of a second
