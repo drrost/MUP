@@ -11,7 +11,8 @@ int main() {
     show_menu(app->renderer);
 
     t_entity *player = malloc(sizeof(t_entity));
-    new_player(app, player);
+    t_entity *game_window = malloc(sizeof(t_entity));
+    new_player(app, player, game_window);
 
 //    t_entity *not = malloc(sizeof(t_entity));
 

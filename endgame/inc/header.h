@@ -35,8 +35,9 @@ void note_falling(t_entity *note, int *level, int *score);
 const char *path_for_res(const char *file_name);
 
 // Senes
-void new_player(App *app, t_entity *player);
+void new_player(App *app, t_entity *player, t_entity *game_window);
 int show_menu(SDL_Renderer *renderer);
 void present_logo_scene();
+t_entity player_lives(App *app, t_entity *game_window);
 
 #endif

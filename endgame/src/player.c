@@ -17,7 +17,7 @@ void path_for_res_old(const char *file_name, char *path) {
     }
 }
 
-void new_player(App *app, t_entity *player) {
+void new_player(App *app, t_entity *player, t_entity *game_window) {
     char path[1024];
     path_for_res_old("player.png", path);
     SDL_Surface *surface = IMG_Load(path);
@@ -83,6 +83,11 @@ void new_player(App *app, t_entity *player) {
     //Start the music
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
+
+    player_lives(app, game_window);
+    SDL_Rect fullheart1 = {410, 10, 40, 40};
+    SDL_Rect fullheart2= {360, 10, 40, 40};
+    SDL_Rect fullheart3= {310, 10, 40, 40};
 
     //animation loop
     while (!close_requested) {
@@ -151,7 +156,11 @@ void new_player(App *app, t_entity *player) {
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-        SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
+	SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
+	SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart1);
+	SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart2);
+	SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart3);
+        //SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
 	if (flip != 1) {
 	  SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
 	} else {
