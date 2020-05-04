@@ -1,23 +1,31 @@
 #include "header.h"
 
+void path_for_res_old(const char *file_name, char *path) {
+    strcpy(path, "../MUP/endgame/resources/");
+    strcat(path, file_name);
+}
+
 void new_player(App *app, t_entity *player) {
-    //load the image into memory using SDL library function
-    const char *path = path_for_res("player.png");
+    char path[1024];
+    path_for_res_old("player.png", path);
     SDL_Surface *surface = IMG_Load(path);
+    path_for_res_old("background.png", path);
+    SDL_Surface *background = IMG_Load(path);
+
     if (!surface) {
         printf("error creating surface\n");
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
+//           /return NULL;
     }
 
-    path = path_for_res("background.png");
-    SDL_Surface *background = IMG_Load(path);
     if (!background) {
         printf("error creating surface\n");
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
+//           /return NULL;
     }
 
     player->texture = SDL_CreateTextureFromSurface(app->renderer, surface);
