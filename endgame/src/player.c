@@ -2,27 +2,18 @@
 // Created by User on 03.05.2020.
 //
 
-#include "header.h"
+#include "../inc/header.h"
 
-void path_for_res(const char *file_name, char *path) {
-//    strcpy(path, "../MUP/endgame/resources/");
-    strcpy(path, "./resources/");
-    strcat(path, file_name);
-}
-
-void new_player(App *app, t_entity *player) {
+void newPlayer(App *app, t_entity *player) {
 //load the image into memory using SDL library function
-    char path[1024];
-    path_for_res("player.png", path);
-    SDL_Surface *surface = IMG_Load(path);
-    path_for_res("background.png", path);
-    SDL_Surface *background = IMG_Load(path);
-
+    SDL_Surface *surface = IMG_Load("../src/player.png");
+    SDL_Surface *background = IMG_Load("../src/background.png");
     if (!surface) {
         printf("error creating surface\n");
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
+//           /return NULL;
     }
 
     if (!background) {
@@ -30,11 +21,12 @@ void new_player(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
+//           /return NULL;
     }
 
     player->texture = SDL_CreateTextureFromSurface(app->renderer, surface);
-    player->background = SDL_CreateTextureFromSurface(
-            app->renderer, background);
+    player->background = SDL_CreateTextureFromSurface(app->renderer,
+                                                      background);
     SDL_FreeSurface(surface);
     SDL_FreeSurface(background);
     if (!player->texture) {

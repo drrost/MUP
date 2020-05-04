@@ -2,9 +2,9 @@
 // Created by User on 03.05.2020.
 //
 
-#include "header.h"
+#include "../inc/header.h"
 
-//t_entity *create_note(SDL_Renderer *renderer, char *texture) {
+//t_entity *createNote(SDL_Renderer *renderer, char *texture) {
 //    t_entity *note = malloc(sizeof(t_entity));
 //    note->rect = malloc(sizeof(SDL_Rect));
 //    note->rect->x = rand() % WINDOW_WIDTH;

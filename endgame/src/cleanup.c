@@ -1,7 +1,7 @@
 //
 // Created by User on 03.05.2020.
 //
-#include "header.h"
+#include "../inc/header.h"
 
 //void cleanup(App *app) {
 //    SDL_DestroyRenderer(app->renderer);

@@ -1,20 +1,27 @@
-CC = clang
-CFLAG = -std=c11 -Wall -Wextra -Werror -Wpedantic
-
-SDL2 = -I ./Frameworks/SDL2.framework/Versions/A/Header -F ./Frameworks -framework SDL2
-SDL2_IMAGE = -I ./Frameworks/SDL2_image.framework/Versions/A/Header -F ./Frameworks/ -framework SDL2_image
-SDL2_TTF = -I ./Frameworks/SDL2_ttf.framework/Versions/A/Headers -F ./Frameworks/ -framework SDL2_ttf
-
 NAME = endgame
+
+SRC = src/initSDL.c \
+ src/cleanup.c \
+ src/note_falling.c \
+ src/main.c \
+ src/player.c \
+ src/menu.c
+
+SDL2 = -I ./Frameworks/SDL2.framework/Versions/A/Header -F ./Frameworks -framework SDL2 -rpath ./Frameworks
+SDL2_IMAGE = -I ./Frameworks/SDL2_image.framework/Versions/A/Header -F ./Frameworks/ -framework SDL2_image -rpath ./Frameworks
+SDL2_MIXER = -I ./Frameworks/SDL2_mixer.framework/Versions/A/Header -F ./Frameworks -framework SDL2_mixer -rpath ./Frameworks
+SDL2_TTF = -I ./Frameworks/SDL2_ttf.framework/Versions/A/Headers -F ./Frameworks/ -framework SDL2_ttf -rpath ./Frameworks
+
+INC = inc/header.h
+
+CC = 
+CFLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
 all: install clean
 install:
-	cp src/*.c inc/*.h .
-	${CC} ${CFLAG} *.c -o ${NAME} ${SDL2} ${SDL2_IMAGE} ${SDL2_TTF} -rpath ./frameworks
-uninstall:
+	@clang ${CFLAGS} $(SRC) -o ${NAME} ${SDL2} ${SDL2_IMAGE} $(SDL2_MIXER) ${SDL2_TTF} -I $(INC)
+uninstall: clean
 	rm -rf ${NAME}
 clean:
-	rm -rf *.c
-	rm -rf *.h
-	rm -rf *.o
+	rm -rf header.h
 reinstall: uninstall all

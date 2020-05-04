@@ -1,7 +1,7 @@
 //
 // Created by User on 03.05.2020.
 //
-#include "header.h"
+#include "../inc/header.h"
 
 void note_falling(t_entity *note, int *level, int *score) {
     if (note->rect->y > WINDOW_HEIGHT) {
