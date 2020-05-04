@@ -18,9 +18,13 @@
 #include <math.h>
 #include <time.h>
 #include <SDL2/SDL.h>
+
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
+//#include <SDL2_mixer/SDL_mixer.h>
+
 //#include <SDL_image.h>
-#include <SDL2/SDL_image.h>
-//#include <SDL2/SDL_ttf.h>
+//#include <SDL_ttf.h>
 
 typedef struct Application {
     SDL_Renderer *renderer;
@@ -43,5 +47,6 @@ void init_sdl(App *app);
 t_entity *create_note(SDL_Renderer *renderer, char *texture);
 void cleanup(App *app);
 void note_falling(t_entity *note, int *level, int *score);
+int show_menu(SDL_Renderer *renderer);
 
 #endif
