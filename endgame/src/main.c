@@ -1,16 +1,18 @@
 #include <application.h>
 #include "header.h"
 
+void ddd();
 int main() {
     srand(time(0));
 
     App *app = get_application();
-    t_entity *player = malloc(sizeof(t_entity));
+//    t_entity *player = malloc(sizeof(t_entity));
 //    t_entity *not = malloc(sizeof(t_entity));
 
     init_sdl(app);
 //    show_menu(app->renderer);
-    new_player(app, player);
+//    new_player(app, player);
+    ddd();
     //    create_note(app->renderer, not->texture);
 
 

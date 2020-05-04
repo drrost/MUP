@@ -7,5 +7,4 @@
 
 void activate_scene(enum e_scene scene) {
     App *app = get_application();
-    app++;
 }
