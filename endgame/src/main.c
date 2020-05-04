@@ -5,7 +5,7 @@ int main() {
     t_entity *player = malloc(sizeof(t_entity));
     t_entity *not = malloc(sizeof(t_entity));
 
-    initSDL(app, player, not);
+    init_sdl(app, player, not);
 
 //    SDL_DestroyTexture(player->texture);
 //    SDL_DestroyTexture(not->texture);

@@ -38,7 +38,7 @@ typedef struct s_entity {
 } t_entity;
 
 void newPlayer(App *app, t_entity *player);
-void initSDL(App *app, t_entity *player, t_entity *not);
+void init_sdl(App *app, t_entity *player, t_entity *not);
 t_entity *createNote(SDL_Renderer *renderer, char *texture);
 void cleanup(App *app);
 void note_falling(t_entity *note, int *level, int *score);

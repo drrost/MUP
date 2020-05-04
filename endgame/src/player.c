@@ -13,7 +13,6 @@ void newPlayer(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
-//           /return NULL;
     }
 
     if (!background) {
@@ -21,7 +20,6 @@ void newPlayer(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
-//           /return NULL;
     }
 
     player->texture = SDL_CreateTextureFromSurface(app->renderer, surface);
