@@ -5,15 +5,18 @@ int main() {
     srand(time(0));
 
     App *app = get_application();
-//    t_entity *not = malloc(sizeof(t_entity));
-
     init_sdl(app);
-//    show_menu(app->renderer);
-//    present_logo_scene();
-    //    create_note(app->renderer, not->texture);
+
+    present_logo_scene();
 
     t_entity *player = malloc(sizeof(t_entity));
     new_player(app, player);
+
+//    t_entity *not = malloc(sizeof(t_entity));
+
+//    show_menu(app->renderer);
+//    create_note(app->renderer, not->texture);
+
 
 //    SDL_DestroyTexture(player->texture);
 //    SDL_DestroyTexture(not->texture);

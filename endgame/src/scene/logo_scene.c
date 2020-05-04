@@ -22,6 +22,7 @@ void present_logo_scene() {
                 if (event.key.keysym.sym == SDLK_ESCAPE ||
                     event.key.keysym.sym == SDLK_RETURN ||
                     event.key.keysym.sym == SDLK_SPACE) {
+                    SDL_DestroyTexture(logo);
                     return;
                 }
             }
