@@ -7,4 +7,6 @@
 
 void activate_scene(enum e_scene scene) {
     App *app = get_application();
+    if (scene == SCENE_NONE)
+        app++;
 }
