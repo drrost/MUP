@@ -4,10 +4,20 @@
 
 #include "header.h"
 
+void path_for_res(const char *file_name, char *path) {
+//    strcpy(path, "../MUP/endgame/resources/");
+    strcpy(path, "./resources/");
+    strcat(path, file_name);
+}
+
 void new_player(App *app, t_entity *player) {
 //load the image into memory using SDL library function
-    SDL_Surface *surface = IMG_Load("../src/player.png");
-    SDL_Surface *background = IMG_Load("../src/background.png");
+    char path[1024];
+    path_for_res("player.png", path);
+    SDL_Surface *surface = IMG_Load(path);
+    path_for_res("background.png", path);
+    SDL_Surface *background = IMG_Load(path);
+
     if (!surface) {
         printf("error creating surface\n");
         SDL_DestroyRenderer(app->renderer);

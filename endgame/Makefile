@@ -1,9 +1,12 @@
 CC = clang
 CFLAG = -std=c11 -Wall -Wextra -Werror -Wpedantic
+
 SDL2 = -I ./Frameworks/SDL2.framework/Versions/A/Header -F ./Frameworks -framework SDL2
 SDL2_IMAGE = -I ./Frameworks/SDL2_image.framework/Versions/A/Header -F ./Frameworks/ -framework SDL2_image
 SDL2_TTF = -I ./Frameworks/SDL2_ttf.framework/Versions/A/Headers -F ./Frameworks/ -framework SDL2_ttf
+
 NAME = endgame
+
 all: install clean
 install:
 	cp src/*.c inc/*.h .
