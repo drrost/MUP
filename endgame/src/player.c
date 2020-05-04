@@ -4,7 +4,7 @@
 
 #include "header.h"
 
-void newPlayer(App *app, t_entity *player) {
+void new_player(App *app, t_entity *player) {
 //load the image into memory using SDL library function
     SDL_Surface *surface = IMG_Load("../src/player.png");
     SDL_Surface *background = IMG_Load("../src/background.png");
@@ -23,8 +23,8 @@ void newPlayer(App *app, t_entity *player) {
     }
 
     player->texture = SDL_CreateTextureFromSurface(app->renderer, surface);
-    player->background = SDL_CreateTextureFromSurface(app->renderer,
-                                                      background);
+    player->background = SDL_CreateTextureFromSurface(
+            app->renderer, background);
     SDL_FreeSurface(surface);
     SDL_FreeSurface(background);
     if (!player->texture) {

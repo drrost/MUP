@@ -13,7 +13,8 @@ void init_sdl(App *app, t_entity *player, t_entity *not) {
     app->window = SDL_CreateWindow("Notes", SDL_WINDOWPOS_UNDEFINED,
             SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     if (!app->window) {
-        printf("Failed to open %d x %d window: %s\n", WINDOW_WIDTH, WINDOW_HEIGHT, SDL_GetError());
+        printf("Failed to open %d x %d window: %s\n",
+                WINDOW_WIDTH, WINDOW_HEIGHT, SDL_GetError());
         exit(1);
     }
 
@@ -22,6 +23,6 @@ void init_sdl(App *app, t_entity *player, t_entity *not) {
         printf("Failed to create renderer: %s\n", SDL_GetError());
         exit(1);
     }
-//    createNote(app->renderer, not->texture);
-    newPlayer(app, player);
+//    create_note(app->renderer, not->texture);
+    new_player(app, player);
 }
