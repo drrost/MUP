@@ -1,31 +1,14 @@
-//
-// Created by User on 03.05.2020.
-//
-
-#include <fcntl.h>
 #include "header.h"
 
 void path_for_res(const char *file_name, char *path) {
-
-    char *paths[] = {
-            "../MUP/endgame/resources/",
-            "../resources/",
-            "./resources/" };
-    for (int i = 0; i < 3; i++) {
-        strcpy(path, paths[i]);
-        strcat(path, file_name);
-        int fd = open(paths[i], O_RDONLY);
-        if (fd != -1) {
-            close(fd);
-            return;
-        }
-    }
+    strcpy(path, "../resources/");
+    strcat(path, file_name);
 }
 
 void new_player(App *app, t_entity *player) {
-//load the image into memory using SDL library function
+    //load the image into memory using SDL library function
     char path[1024];
-    path_for_res("player.png", path);
+    path_for_res("player_.png", path);
     SDL_Surface *surface = IMG_Load(path);
     path_for_res("background.png", path);
     SDL_Surface *background = IMG_Load(path);
@@ -35,6 +18,7 @@ void new_player(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
+//           /return NULL;
     }
 
     if (!background) {
@@ -42,11 +26,12 @@ void new_player(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
+//           /return NULL;
     }
 
     player->texture = SDL_CreateTextureFromSurface(app->renderer, surface);
-    player->background = SDL_CreateTextureFromSurface(
-            app->renderer, background);
+    player->background = SDL_CreateTextureFromSurface(app->renderer,
+                                                      background);
     SDL_FreeSurface(surface);
     SDL_FreeSurface(background);
     if (!player->texture) {
@@ -54,15 +39,12 @@ void new_player(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
-        //return 1;
     }
-
     if (!player->background) {
         printf("error creating texture: %s\n", SDL_GetError());
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
-        //return 1;
     }
 
 //struct to hold the position and size of the sprite
@@ -75,10 +57,6 @@ void new_player(App *app, t_entity *player) {
     SDL_QueryTexture(player->texture, NULL, NULL, &dest.w, &dest.h);
     dest.w /= 4;
     dest.h /= 4;
-
-//    //start background
-//    float bg_x = (WINDOW_WIDTH - bg.w) / 2;
-//    float bg_y = (WINDOW_HEIGHT - bg.h) / 2;
 
 //start sprite  in the center of screen
     float x_pos = (WINDOW_WIDTH - dest.w) / 2;
@@ -93,6 +71,9 @@ void new_player(App *app, t_entity *player) {
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
+    //Start the music
+    //load_music(player);
+    //Mix_PlayMusic(player->level_song, -1);
 
     //animation loop
     while (!close_requested) {
@@ -152,10 +133,6 @@ void new_player(App *app, t_entity *player) {
         dest.y = (int) y_pos;
         dest.x = (int) x_pos;
 
-
-//    //set the background in the struct;
-//    dest.y = (int) y_pos;
-//    dest.x = (int) x_pos;
         //clear the window
         SDL_RenderClear(app->renderer);
 
@@ -167,4 +144,6 @@ void new_player(App *app, t_entity *player) {
         //wait 1/60th of a second
         SDL_Delay(1000 / 60);
     }
+    //Mix_FreeMusic(player->level_song);
+    //Mix_CloseAudio();
 }
