@@ -1,9 +1,10 @@
+#include <application.h>
 #include "header.h"
 
 int main() {
     srand(time(0));
 
-    App *app = malloc(sizeof(App));
+    App *app = get_application();
     t_entity *player = malloc(sizeof(t_entity));
 //    t_entity *not = malloc(sizeof(t_entity));
 

@@ -15,26 +15,8 @@
 #include <ctype.h>
 #include <math.h>
 #include <time.h>
-#include <SDL2/SDL.h>
-
-#ifdef CMAKE
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-#else
-#include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
-#include <SDL2_ttf/SDL_ttf.h>
-#include <SDL2_mixer/SDL_mixer.h>
-#endif
-
-typedef struct Application {
-    SDL_Renderer *renderer;
-    SDL_Window *window;
-//    int left;
-//    int right;
-//    int quit;
-} App;
+#include <sdl_all.h>
+#include <application.h>
 
 typedef struct s_entity {
 //    int x;
