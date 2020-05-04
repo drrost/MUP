@@ -1,6 +1,8 @@
 #include <fcntl.h>
 #include "header.h"
 
+SDL_Surface *createSurface(const App *app, const char *image_name);
+
 void path_for_res(const char *file_name, char *path) {
     // Kindly left for Karina
 //    strcpy(path, "../resources/");
@@ -23,19 +25,11 @@ void path_for_res(const char *file_name, char *path) {
 
 void new_player(App *app, t_entity *player) {
     //load the image into memory using SDL library function
+    SDL_Surface *surface = createSurface(app, "player.png");
+
     char path[1024];
-    path_for_res("player.png", path);
-    SDL_Surface *surface = IMG_Load(path);
     path_for_res("background.png", path);
     SDL_Surface *background = IMG_Load(path);
-
-    if (!surface) {
-        printf("error creating surface for \"player.png\"\n");
-        SDL_DestroyRenderer(app->renderer);
-        SDL_DestroyWindow(app->window);
-        SDL_Quit();
-    }
-
     if (!background) {
         printf("error creating surface\n");
         SDL_DestroyRenderer(app->renderer);
@@ -160,4 +154,18 @@ void new_player(App *app, t_entity *player) {
     }
     //Mix_FreeMusic(player->level_song);
     //Mix_CloseAudio();
+}
+
+SDL_Surface *createSurface(const App *app, const char *image_name) {
+    char path[1024];
+    path_for_res(image_name, path);
+    SDL_Surface *surface = IMG_Load(path);
+
+    if (!surface) {
+        printf("error creating surface for \"%s\"\n", image_name);
+        SDL_DestroyRenderer(app->renderer);
+        SDL_DestroyWindow(app->window);
+        SDL_Quit();
+    }
+    return surface;
 }
