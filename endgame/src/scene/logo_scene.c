@@ -11,9 +11,9 @@ void present_logo_scene() {
     SDL_Renderer *renderer = get_application()->renderer;
 
     //Customize panels
-    SDL_Rect rc_logo = {250, 150, 300, 300};
+    SDL_Rect rc_logo = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 
-    const char *path = path_for_res("logo.jpg");
+    const char *path = path_for_res("logo.png");
     SDL_Texture *logo = IMG_LoadTexture(renderer, path);
 
     while (1) {
