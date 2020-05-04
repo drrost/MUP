@@ -72,6 +72,12 @@ int show_menu(SDL_Renderer *renderer) {
                     if (index_menu == 1) index_menu = 2;
                 }
                 if (event.key.keysym.sym == SDLK_RETURN) {
+                    SDL_DestroyTexture(button11);
+                    SDL_DestroyTexture(button22);
+                    SDL_DestroyTexture(button33);
+                    SDL_DestroyTexture(button44);
+                    SDL_DestroyTexture(button55);
+                    SDL_DestroyTexture(imgBackground);
                     return index_menu;
                 }
             }
