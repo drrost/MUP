@@ -43,7 +43,7 @@ int show_menu(SDL_Renderer *renderer) {
     //background
     SDL_Rect backgroundRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
     SDL_Texture *imgBackground = IMG_LoadTexture(renderer,
-                                                 "resource/background");
+                                                 "resource/empty_back.png");
 
     while (running) {
         color.r = 0;
