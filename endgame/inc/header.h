@@ -15,17 +15,13 @@
 #include <ctype.h>
 #include <math.h>
 #include <time.h>
-#include <SDL2/SDL.h>
+#include <fcntl.h>
+#include <errno.h>
 
-#ifdef CMAKE
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL_mixer.h>
-#else
-#include <SDL2/SDL_image.h>
-#include <SDL_ttf.h>
-#include <SDL2/SDL_mixer.h>
-#endif
+#include <SDL2/SDL.h>
+#include <SDL2_image/SDL_image.h>
+#include <SDL2_ttf/SDL_ttf.h>
+#include <SDL2_mixer/SDL_mixer.h>
 
 typedef struct Application {
     SDL_Renderer *renderer;
@@ -44,13 +40,50 @@ typedef struct s_entity {
     Mix_Music *level_song;
 } t_entity;
 
-void new_player(App *app, t_entity *player);
+typedef struct s_img {
+    SDL_Surface *srf;
+    SDL_Rect n_1;
+    SDL_Rect n_2;
+    SDL_Rect n_3;
+}               t_img;
+
+typedef struct s_notes {
+    SDL_Window *window;
+    SDL_Surface *win_srfc; //главний сурфейс
+    SDL_Surface *wlpp; //картинка заставка
+    SDL_Surface *txt;  // для подсчета чисел
+    SDL_Surface *game_over;  // для game over
+    TTF_Font *font;
+    Mix_Music *music;
+
+    int     w;
+    int     h;
+    int     hp;
+    int     score;
+    int     step;
+
+    t_img nota;
+    t_img nenota;
+    t_img player;
+    t_img heart;
+} t_notes;
+
+void new_player(App *app, t_entity *player, t_notes *note);
+int init_random(int low, int high);
+SDL_Rect set_coordinate(SDL_Rect rct, int speed);
+bool compare(SDL_Rect a, SDL_Rect b);
+void is_catch_note(t_notes *note);
+void note_falling(t_notes *note, int x);
+void print_heart_score(t_notes *note);
 void init_sdl(App *app);
+void draw_text(SDL_Color color, int x, int y, char *text, 
+               SDL_Renderer *renderer, TTF_Font *font);
+void print_window(t_notes *note);
+void create_notes(t_notes *note);
 void load_music(t_entity *player);
-t_entity *create_note(SDL_Renderer *renderer, char *texture);
-void cleanup(App *app);
-void note_falling(t_entity *note, int *level, int *score);
 int show_menu(SDL_Renderer *renderer);
 void path_for_res(const char *file_name, char *path);
+
+int main();
 
 #endif

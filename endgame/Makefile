@@ -1,3 +1,5 @@
+NAME = endgame
+
 CC = clang
 CFLAG = -std=c11 -Wall -Wextra -Werror -Wpedantic
 
@@ -6,7 +8,6 @@ SDL2_IMAGE = -I ./Frameworks/SDL2_image.framework/Versions/A/Header -F ./Framewo
 SDL2_TTF = -I ./Frameworks/SDL2_ttf.framework/Versions/A/Headers -F ./Frameworks/ -framework SDL2_ttf
 SDL2_MIX = -I ./Frameworks/SDL2_mixer.framework/Versions/A/Headers -F ./Frameworks/ -framework SDL2_mixer
 
-NAME = endgame
 
 all: install clean
 install:

@@ -1,10 +1,4 @@
-//
-// Created by Rostyslav Druzhchenko on 04.05.2020.
-//
-
-#include <fcntl.h>
-#include <unistd.h>
-#include <string.h>
+#include "header.h"
 
 void path_for_res(const char *file_name, char *path) {
 #ifdef CMAKE_WIN
