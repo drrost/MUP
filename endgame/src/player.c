@@ -2,12 +2,24 @@
 // Created by User on 03.05.2020.
 //
 
+#include <fcntl.h>
 #include "header.h"
 
 void path_for_res(const char *file_name, char *path) {
+
+    char *paths[] = {
+            "../MUP/endgame/resources/",
+            "./resources/" };
+    for (int i = 0; i < 2; i++) {
+        int fd = open(paths[i], O_RDONLY);
+        if (fd != -1)
+            strcpy(path, paths[i]);
+        close(fd);
+    }
+
 //    strcpy(path, "../MUP/endgame/resources/");
-    strcpy(path, "./resources/");
     strcat(path, file_name);
+
 }
 
 void new_player(App *app, t_entity *player) {
@@ -44,6 +56,7 @@ void new_player(App *app, t_entity *player) {
         SDL_Quit();
         //return 1;
     }
+
     if (!player->background) {
         printf("error creating texture: %s\n", SDL_GetError());
         SDL_DestroyRenderer(app->renderer);
