@@ -1,8 +1,20 @@
+#include <fcntl.h>
 #include "header.h"
 
 void path_for_res_old(const char *file_name, char *path) {
-    strcpy(path, "../MUP/endgame/resources/");
-    strcat(path, file_name);
+    char *paths[] = {
+            "../MUP/endgame/resources/",
+            "../resources/",
+            "./resources/" };
+    for (int i = 0; i < 3; i++) {
+        strcpy(path, paths[i]);
+        strcat(path, file_name);
+        int fd = open(paths[i], O_RDONLY);
+        if (fd != -1) {
+            close(fd);
+            return;
+        }
+    }
 }
 
 void new_player(App *app, t_entity *player) {
@@ -17,7 +29,6 @@ void new_player(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
-//           /return NULL;
     }
 
     if (!background) {
@@ -25,7 +36,6 @@ void new_player(App *app, t_entity *player) {
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
         SDL_Quit();
-//           /return NULL;
     }
 
     player->texture = SDL_CreateTextureFromSurface(app->renderer, surface);

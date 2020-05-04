@@ -11,6 +11,7 @@ const char *path_for_res(const char *file_name) {
 #ifdef CMAKE_WIN
     strcpy(path, "../resources/");
     strcat(path, file_name);
+    return path;
 #else
     char *paths[] = {
             "../MUP/endgame/resources/",
@@ -25,5 +26,6 @@ const char *path_for_res(const char *file_name) {
             return path;
         }
     }
+    return path;
 #endif
 }
