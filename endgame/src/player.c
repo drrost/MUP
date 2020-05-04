@@ -2,9 +2,7 @@
 
 void new_player(App *app, t_entity *player) {
     //load the image into memory using SDL library function
-    char path[1024];
-
-    path_for_res("player.png", path);
+    const char *path = path_for_res("player.png");
     SDL_Surface *surface = IMG_Load(path);
     if (!surface) {
         printf("error creating surface\n");
@@ -13,7 +11,7 @@ void new_player(App *app, t_entity *player) {
         SDL_Quit();
     }
 
-    path_for_res("background.png", path);
+    path = path_for_res("background.png");
     SDL_Surface *background = IMG_Load(path);
     if (!background) {
         printf("error creating surface\n");

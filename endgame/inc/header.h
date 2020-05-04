@@ -27,13 +27,16 @@ typedef struct s_entity {
     Mix_Music *level_song;
 } t_entity;
 
-void new_player(App *app, t_entity *player);
 void init_sdl(App *app);
 void load_music(t_entity *player);
 t_entity *create_note(SDL_Renderer *renderer, char *texture);
 void cleanup(App *app);
 void note_falling(t_entity *note, int *level, int *score);
+const char *path_for_res(const char *file_name);
+
+// Senes
+void new_player(App *app, t_entity *player);
 int show_menu(SDL_Renderer *renderer);
-void path_for_res(const char *file_name, char *path);
+void present_logo_scene();
 
 #endif

@@ -5,7 +5,7 @@
 #include <sdl_all.h>
 #include <header.h>
 
-void ddd() {
+void present_logo_scene() {
     SDL_Event event;
 
     SDL_Renderer *renderer = get_application()->renderer;
@@ -13,8 +13,7 @@ void ddd() {
     //Customize panels
     SDL_Rect rc_logo = {250, 150, 300, 300};
 
-    char path[1024];
-    path_for_res("logo.jpg", path);
+    const char *path = path_for_res("logo.jpg");
     SDL_Texture *logo = IMG_LoadTexture(renderer, path);
 
     while (1) {
