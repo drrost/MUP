@@ -7,6 +7,9 @@
 #define NOTE_WIDTH (200)
 #define NOTE_HEIGHT (200)
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -33,11 +36,17 @@ t_entity *create_note(SDL_Renderer *renderer, char *texture);
 void cleanup(App *app);
 void note_falling(t_entity *note, int *level, int *score);
 const char *path_for_res(const char *file_name);
+void draw_text(SDL_Color color, int x, int y, char *text, SDL_Renderer *renderer, TTF_Font *font);
+// void draw_the_text(SDL_Color color, int x, int y, char *text, SDL_Renderer *renderer, TTF_Font *font);
 
-// Senes
+// Scenes
+int scoreboard(SDL_Renderer *renderer);
 void new_player(App *app, t_entity *player, t_entity *game_window);
 int show_menu(SDL_Renderer *renderer);
 void present_logo_scene();
 t_entity player_lives(App *app, t_entity *game_window);
+
+//Other
+char *mx_strnew(const int size);
 
 #endif

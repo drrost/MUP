@@ -8,11 +8,17 @@ int main() {
     init_sdl(app);
 
     present_logo_scene();
-    show_menu(app->renderer);
-
+    int scene = show_menu(app->renderer);
+    if (scene == 1) {
     t_entity *player = malloc(sizeof(t_entity));
     t_entity *game_window = malloc(sizeof(t_entity));
     new_player(app, player, game_window);
+    }
+    if (scene == 3) {
+        scoreboard(app->renderer);
+    }
+
+    SDL_Delay(1000000);
 
 //    t_entity *not = malloc(sizeof(t_entity));
 
