@@ -10,8 +10,8 @@ int scoreboard(SDL_Renderer *renderer) {
 	int page = 0;
 	TTF_Font *font = TTF_OpenFont(path_for_res("ARIAL.TTF"), 25);
 
-	SDL_Color colorGR = {255, 255, 0, 255};
-    // SDL_Color colorGR = {155, 255, 0, 255};
+	SDL_Color color = {255, 255, 0, 255};
+    SDL_Color colorGR = {155, 255, 0, 255};
 
 
     SDL_Rect backgroundRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
@@ -27,11 +27,11 @@ int scoreboard(SDL_Renderer *renderer) {
     	int z = 0;
     	int topage = 6;
     	SDL_RenderCopy(renderer, imageBackground, NULL, &backgroundRect);
-    	draw_text(colorGR, 800, 100, "Scoreboard", renderer, font);
-    	draw_text(colorGR, 100, 200, "Name", renderer, font);
-    	draw_text(colorGR, 100, 200, "Games", renderer, font);
-    	draw_text(colorGR, 100, 200, "Name", renderer, font);
-    	draw_text(colorGR, 100, 200, "Wins", renderer, font);
+    	draw_text(colorGR, 400, 50, "Scoreboard", renderer, font);
+    	draw_text(colorGR, 50, 100, "Name", renderer, font);
+    	draw_text(color, 250, 100, "Games", renderer, font);
+    	// draw_text(colorGR, 350, 300, "Name", renderer, font);
+    	draw_text(color, 500, 100, "Wins", renderer, font);
     	while(status) {
     		i = 0;
 
@@ -54,11 +54,16 @@ int scoreboard(SDL_Renderer *renderer) {
     			i++;
     		}
     		if (((y - 6) >= page * 14) && ((y - 6) < (page + 1) * 14)) {
-    			draw_text(colorGR, 100, 50*topage, name, renderer, font);
-    			draw_text(colorGR, 100, 50*topage, games, renderer, font);
-    			draw_text(colorGR, 100, 50*topage, win, renderer, font);
+    			draw_text(colorGR, 50, 25*topage, name, renderer, font);
+    			draw_text(colorGR, 250, 25*topage, games, renderer, font);
+    			draw_text(colorGR, 500, 25*topage, win, renderer, font);
     			topage++;
     		}
+            free(name);
+            free(games);
+            free(win);
+            y++;
+            }
     		while(SDL_PollEvent(&event)) {
             	if (event.type == SDL_KEYUP) {
                 	if(event.key.keysym.sym == SDLK_RIGHT) {
@@ -78,7 +83,5 @@ int scoreboard(SDL_Renderer *renderer) {
         close(file);
     }
     SDL_DestroyTexture(imageBackground);
-
-    }
     return 1;
 }

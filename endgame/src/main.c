@@ -8,14 +8,20 @@ int main() {
     init_sdl(app);
 
     present_logo_scene();
-    int scene = show_menu(app->renderer);
+    int scene = 6;
+    while (scene == 3 || scene == 6 || scene == 5) {
+        scene = show_menu(app->renderer);
+        if (scene == 3) {
+            scene = scoreboard(app->renderer);
+        }
+        // if (scene == 5)
+        //     scene = about;
+    }
     if (scene == 1) {
-    t_entity *player = malloc(sizeof(t_entity));
-    new_player(app, player);
+        t_entity *player = malloc(sizeof(t_entity));
+        new_player(app, player);
     }
-    if (scene == 3) {
-        scoreboard(app->renderer);
-    }
+
 
     // SDL_Delay(1000000);
 
