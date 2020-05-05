@@ -3,6 +3,7 @@
 void move_hero(t_hero *hero);
 
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
+
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void new_player(App *app, t_entity *player) {
@@ -140,46 +141,45 @@ void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero) {
 }
 
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives) {
-
-  switch (lives) {
-  case 6:
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos1);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
-    break;
-  case 5:
-    SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos1);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
-    break;
-  case 4:
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
-    break;
-  case 3:
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
-    SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos2);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
-    break;
-  case 2:
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
-    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
-    break;
-  case 1:
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
-    SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos3);
-    break;
-  case 0: //Game over
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
-    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos3);
-    break;
-  default:
-    break;
-  }
+    switch (lives) {
+        case 6:
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos1);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+            break;
+        case 5:
+            SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos1);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+            break;
+        case 4:
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+            break;
+        case 3:
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+            SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos2);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+            break;
+        case 2:
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
+            SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+            break;
+        case 1:
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
+            SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos3);
+            break;
+        case 0: //Game over
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
+            SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos3);
+            break;
+        default:
+            break;
+    }
 }
 
 void move_hero(t_hero *hero) {
