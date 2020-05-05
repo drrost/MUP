@@ -40,12 +40,12 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
         SDL_Quit();
     }
 
-    player->texture = SDL_CreateTextureFromSurface(app->renderer, surface);
+    player->texture1 = SDL_CreateTextureFromSurface(app->renderer, surface);
     player->background = SDL_CreateTextureFromSurface(app->renderer,
                                                       background);
     SDL_FreeSurface(surface);
     SDL_FreeSurface(background);
-    if (!player->texture) {
+    if (!player->texture1) {
         printf("error creating texture: %s\n", SDL_GetError());
         SDL_DestroyRenderer(app->renderer);
         SDL_DestroyWindow(app->window);
@@ -65,7 +65,7 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     SDL_QueryTexture(player->background, NULL, NULL, &bg.w, &bg.h);
     bg.w /= 1;
     bg.h /= 1;
-    SDL_QueryTexture(player->texture, NULL, NULL, &dest.w, &dest.h);
+    SDL_QueryTexture(player->texture1, NULL, NULL, &dest.w, &dest.h);
     dest.w /= 4;
     dest.h /= 4;
 
@@ -81,9 +81,11 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     Mix_PlayMusic(player->level_song, -1);
 
     add_hero_lives_textures(app->renderer, game_window);
-    SDL_Rect fullheart1 = {410, 10, 40, 40};
-    SDL_Rect fullheart2 = {360, 10, 40, 40};
-    SDL_Rect fullheart3 = {310, 10, 40, 40};
+    SDL_Rect heart1 = {410, 10, 40, 40};
+    SDL_Rect heart2= {360, 10, 40, 40};
+    SDL_Rect heart3= {310, 10, 40, 40};
+
+    int lives = 6;
 
     // TODO: create notes state structure
     // t_notes notes = ....
@@ -109,6 +111,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                             hero.direction = RIGHT;
                             hero.is_moving = 1;
                             break;
+		    case SDL_SCANCODE_SPACE:
+		      lives--;
                         default:
                             break;
                     }
@@ -139,13 +143,50 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
 
         //draw the image to the window
         SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-        SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart1);
-        SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart2);
-        SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart3);
+        switch (lives) {
+        case 6:
+          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart1);
+          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart2);
+          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
+          break;
+        case 5:
+          SDL_RenderCopy(app->renderer, game_window->texture2, NULL, &heart1);
+          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart2);
+          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
+          break;
+	case 4:
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
+	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart2);
+	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
+	  break;
+	case 3:
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
+	  SDL_RenderCopy(app->renderer, game_window->texture2, NULL, &heart2);
+	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
+	  break;
+	case 2:
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart2);
+	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
+	  break;
+	case 1:
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart2);
+	  SDL_RenderCopy(app->renderer, game_window->texture2, NULL, &heart3);
+	  break;
+	case 0: //Game over
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart2);
+	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart3);
+	  break;
+	default:
+	  break;
+        }
+
         if (hero.direction == RIGHT) {
-            SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
+            SDL_RenderCopy(app->renderer, player->texture1, NULL, &dest);
         } else {
-            SDL_RenderCopyEx(app->renderer, player->texture, NULL, &dest,
+            SDL_RenderCopyEx(app->renderer, player->texture1, NULL, &dest,
                              180.0f, NULL, rotate);
         }
         SDL_RenderPresent(app->renderer);

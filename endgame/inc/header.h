@@ -22,7 +22,9 @@ typedef struct s_entity {
 //    int x;
 //    int y;
     SDL_Rect *rect;
-    SDL_Texture *texture;
+    SDL_Texture *texture1;
+  SDL_Texture *texture2;
+  SDL_Texture *texture3;
     SDL_Texture *background;
     Mix_Music *level_song;
 } t_entity;
