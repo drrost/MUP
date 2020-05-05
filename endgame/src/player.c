@@ -1,6 +1,8 @@
 #include <fcntl.h>
 #include "header.h"
 
+void move_hero(SDL_Rect *dest, t_hero *hero);
+
 void path_for_res_old(const char *file_name, char *path) {
     char *paths[] = {
             "../MUP/endgame/resources/",
@@ -133,29 +135,7 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
             }
         }
 
-        // TODO: move position calculation to a separate method
-
-        //give sprite initial velocity
-        float x_vel = 0;
-        if (hero.is_moving != 0) {
-            x_vel = hero.direction == LEFT ? -SCROLL_SPEED : SCROLL_SPEED;
-        }
-
-        //update positions;
-        hero.position.x += x_vel / 60;
-
-        //collision detection with bounds
-        if (hero.position.x <= 0) hero.position.x = 0;
-        if (hero.position.y <= 0) hero.position.y = 0;
-        if (hero.position.x >= WINDOW_WIDTH - dest.w) hero.position.x =
-                WINDOW_WIDTH - dest.w;
-        if (hero.position.y >= WINDOW_HEIGHT - dest.h) hero.position.y =
-                WINDOW_HEIGHT - dest.h;
-
-        //set the position in the struct
-//        dest = my_func(....);
-        dest.x = hero.position.x;
-        dest.y = hero.position.y;
+        move_hero(&dest, &hero);
 
         // TODO: Move hero rendering to a separate method
         //clear the window
@@ -185,4 +165,27 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     }
     //Mix_FreeMusic(player->level_song);
     //Mix_CloseAudio();
+}
+
+void move_hero(SDL_Rect *dest, t_hero *hero) {
+    //give sprite initial velocity
+    float x_vel = 0;
+    if ((*hero).is_moving != 0) {
+        x_vel = (*hero).direction == LEFT ? -SCROLL_SPEED : SCROLL_SPEED;
+    }
+
+    //update positions;
+    (*hero).position.x += x_vel / 60;
+
+    //collision detection with bounds
+    if ((*hero).position.x <= 0) (*hero).position.x = 0;
+    if ((*hero).position.y <= 0) (*hero).position.y = 0;
+    if ((*hero).position.x >= WINDOW_WIDTH - (*dest).w) (*hero).position.x =
+            WINDOW_WIDTH - (*dest).w;
+    if ((*hero).position.y >= WINDOW_HEIGHT - (*dest).h) (*hero).position.y =
+            WINDOW_HEIGHT - (*dest).h;
+
+    //set the position in the struct
+    (*dest).x = (*hero).position.x;
+    (*dest).y = (*hero).position.y;
 }
