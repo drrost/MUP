@@ -10,7 +10,7 @@ int main() {
 
 //    t_entity *not = malloc(sizeof(t_entity));
     present_logo_scene();
-    show_menu(app->renderer);
+    // show_menu(app->renderer);
 
     int scene = 6;
     while (scene == 3 || scene == 6 || scene == 5) {

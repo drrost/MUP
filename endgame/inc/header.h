@@ -39,7 +39,7 @@ typedef struct s_hearts {
   SDL_Rect heart_pos3;
 } t_hearts;
 
-<<<<<<< HEAD
+
 typedef struct s_img {
     SDL_Surface *srf;
     SDL_Texture *textr;
