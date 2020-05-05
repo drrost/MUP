@@ -5,7 +5,7 @@ void path_for_res_old(const char *file_name, char *path) {
     char *paths[] = {
             "../MUP/endgame/resources/",
             "../resources/",
-            "./resources/" };
+            "./resources/"};
     for (int i = 0; i < 3; i++) {
         strcpy(path, paths[i]);
         strcat(path, file_name);
@@ -67,9 +67,10 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     dest.w /= 4;
     dest.h /= 4;
 
-//start sprite  in the center of screen
-    float x_pos = (WINDOW_WIDTH - dest.w) / 2;
-    float y_pos = (WINDOW_HEIGHT - dest.h) * 2;
+    //start sprite  in the center of screen
+    SDL_Point hero_position =
+            {(WINDOW_WIDTH - dest.w) / 2, (WINDOW_HEIGHT - dest.h) * 2};
+
 //give sprite initial velocity
     float x_vel = 0;
     float y_vel = 0;
@@ -86,15 +87,15 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
 
     player_lives(app, game_window);
     SDL_Rect fullheart1 = {410, 10, 40, 40};
-    SDL_Rect fullheart2= {360, 10, 40, 40};
-    SDL_Rect fullheart3= {310, 10, 40, 40};
+    SDL_Rect fullheart2 = {360, 10, 40, 40};
+    SDL_Rect fullheart3 = {310, 10, 40, 40};
 
     //animation loop
     while (!close_requested) {
         SDL_Event event;
-	int flip;
-	float angle = 180.0f; //set the angle
-	SDL_RendererFlip rotate = SDL_FLIP_VERTICAL;
+        int flip;
+        float angle = 180.0f; //set the angle
+        SDL_RendererFlip rotate = SDL_FLIP_VERTICAL;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -105,12 +106,12 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
                             left = 1;
-			    flip = 1;
+                            flip = 1;
                             break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
                             right = 1;
-			    flip = 0;
+                            flip = 0;
                             break;
                         default:
                             break;
@@ -133,39 +134,48 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                     break;
             }
         }
+
+        // TODO: move to a separate method
+//        float x_pos = (WINDOW_WIDTH - dest.w) / 2;
+//        float y_pos = (WINDOW_HEIGHT - dest.h) * 2;
+
+
         //determine velocity
         x_vel = y_vel = 0;
         if (left && !right) x_vel = -SCROLL_SPEED;
         if (right && !left) x_vel = SCROLL_SPEED;
 
         //update positions;
-        x_pos += x_vel / 60;
-        y_pos += y_vel / 60;
+        hero_position.x += x_vel / 60;
+        hero_position.y += y_vel / 60;
 
         //collision detection with bounds
-        if (x_pos <= 0) x_pos = 0;
-        if (y_pos <= 0) y_pos = 0;
-        if (x_pos >= WINDOW_WIDTH - dest.w) x_pos = WINDOW_WIDTH - dest.w;
-        if (y_pos >= WINDOW_HEIGHT - dest.h) y_pos = WINDOW_HEIGHT - dest.h;
+        if (hero_position.x <= 0) hero_position.x = 0;
+        if (hero_position.y <= 0) hero_position.y = 0;
+        if (hero_position.x >= WINDOW_WIDTH - dest.w) hero_position.x =
+                WINDOW_WIDTH - dest.w;
+        if (hero_position.y >= WINDOW_HEIGHT - dest.h) hero_position.y =
+                WINDOW_HEIGHT - dest.h;
 
         //set the position in the struct
-        dest.y = (int) y_pos;
-        dest.x = (int) x_pos;
+        dest.x = (int) hero_position.x;
+        dest.y = (int) hero_position.y;
 
         //clear the window
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-	SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-	SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart1);
-	SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart2);
-	SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart3);
+        SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
+        SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart1);
+        SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart2);
+        SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart3);
         //SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-	if (flip != 1) {
-	  SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
-	} else {
-	  SDL_RenderCopyEx(app->renderer, player->texture, NULL, &dest, angle, NULL, rotate);
-	}
+        if (flip != 1) {
+            SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
+        } else {
+            SDL_RenderCopyEx(app->renderer, player->texture, NULL, &dest,
+                             angle, NULL, rotate);
+        }
         SDL_RenderPresent(app->renderer);
 
         //wait 1/60th of a second
