@@ -1,3 +1,4 @@
+#include <hero.h>
 #include "header.h"
 
 void move_hero(t_hero *hero);
