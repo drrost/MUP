@@ -3,8 +3,8 @@
 
 void move_hero(SDL_Rect *dest, t_hero *hero);
 
-void render_hearts(SDL_Renderer *renderer, const t_entity *player,
-                   const t_entity *game_window, SDL_Rect *bg, SDL_Rect *heart1,
+void render_hearts(SDL_Renderer *renderer,
+                   const t_entity *game_window, SDL_Rect *heart1,
                    SDL_Rect *heart2, SDL_Rect *heart3, int lives);
 
 void path_for_res_old(const char *file_name, char *path) {
@@ -146,7 +146,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-        render_hearts(app->renderer, player, game_window, &bg,
+        SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
+        render_hearts(app->renderer, game_window,
                       &heart1, &heart2, &heart3, lives);
 
         if (hero.direction == RIGHT) {
@@ -170,10 +171,10 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     //Mix_CloseAudio();
 }
 
-void render_hearts(SDL_Renderer *renderer, const t_entity *player,
-                   const t_entity *game_window, SDL_Rect *bg, SDL_Rect *heart1,
+void render_hearts(SDL_Renderer *renderer,
+                   const t_entity *game_window, SDL_Rect *heart1,
                    SDL_Rect *heart2, SDL_Rect *heart3, int lives) {
-    SDL_RenderCopy(renderer, player->background, NULL, bg);
+
     switch (lives) {
         case 6:
             SDL_RenderCopy(renderer, game_window->texture1, NULL, heart1);
