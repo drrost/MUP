@@ -1,9 +1,11 @@
 #include "header.h"
 
-void path_for_res(const char *file_name, char *path) {
+const char *path_for_res(const char *file_name) {
+    static char path[1024];
 #ifdef CMAKE_WIN
     strcpy(path, "../resources/");
     strcat(path, file_name);
+    return path;
 #else
     char *paths[] = {
             "../MUP/endgame/resources/",
@@ -15,8 +17,9 @@ void path_for_res(const char *file_name, char *path) {
         int fd = open(paths[i], O_RDONLY);
         if (fd != -1) {
             close(fd);
-            return;
+            return path;
         }
     }
+    return path;
 #endif
 }

@@ -15,6 +15,8 @@
 #include <ctype.h>
 #include <math.h>
 #include <time.h>
+#include <sdl_all.h>
+#include <application.h>
 #include <fcntl.h>
 #include <errno.h>
 
@@ -23,13 +25,13 @@
 #include <SDL2_ttf/SDL_ttf.h>
 #include <SDL2_mixer/SDL_mixer.h>
 
-typedef struct Application {
+/*typedef struct Application {
     SDL_Renderer *renderer;
     SDL_Window *window;
 //    int left;
 //    int right;
 //    int quit;
-} App;
+} App;*/
 
 typedef struct s_entity {
 //    int x;
@@ -68,7 +70,7 @@ typedef struct s_notes {
     t_img heart;
 } t_notes;
 
-void new_player(App *app, t_entity *player, t_notes *note);
+
 int init_random(int low, int high);
 SDL_Rect set_coordinate(SDL_Rect rct, int speed);
 bool compare(SDL_Rect a, SDL_Rect b);
@@ -81,8 +83,15 @@ void draw_text(SDL_Color color, int x, int y, char *text,
 void print_window(t_notes *note);
 void create_notes(t_notes *note);
 void load_music(t_entity *player);
+void cleanup(App *app);
+void note_falling(t_entity *note, int *level, int *score);
+const char *path_for_res(const char *file_name);
+
+// Senes
+void new_player(App *app, t_entity *player, t_entity *game_window, t_notes *note);
 int show_menu(SDL_Renderer *renderer);
-void path_for_res(const char *file_name, char *path);
+void present_logo_scene();
+t_entity player_lives(App *app, t_entity *game_window);
 
 int main();
 

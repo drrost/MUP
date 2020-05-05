@@ -1,13 +1,22 @@
+#include <application.h>
 #include "header.h"
 
 int main() {
-    App *app = malloc(sizeof(App));
+    srand(time(0));
+
+    App *app = get_application();
+    init_sdl(app);
+
+    present_logo_scene();
+    show_menu(app->renderer);
+
     t_entity *player = malloc(sizeof(t_entity));
+    t_entity *game_window = malloc(sizeof(t_entity));
+    new_player(app, player, game_window, note);
+
 //    t_entity *not = malloc(sizeof(t_entity));
     t_notes *note = (t_notes *)malloc(sizeof(t_notes));
     create_notes(note);
-
-    init_sdl(app);
 
     note->nota.n_1.x = init_random(0, 800);  // рандомное начало для выпадания элементов
     note->nenota.n_1.x = init_random(0, 800);
@@ -25,8 +34,6 @@ int main() {
 
 
 //    show_menu(app->renderer);
-    new_player(app, player, note);
-    //    create_note(app->renderer, not->texture);
 
     SDL_RenderPresent(app->renderer);
 //    SDL_DestroyTexture(player->texture);

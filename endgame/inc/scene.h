@@ -12,5 +12,5 @@ enum e_scene {
 };
 
 typedef struct s_scene {
-    e_scene type;
+    enum e_scene type;
 }              t_scene;
