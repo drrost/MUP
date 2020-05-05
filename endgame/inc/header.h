@@ -39,6 +39,15 @@ typedef struct s_hearts {
   SDL_Rect heart_pos3;
 } t_hearts;
 
+typedef struct s_score {
+  SDL_Texture *texture1;
+  SDL_Texture *texture2;
+  SDL_Color color;
+  TTF_Font *font;
+  SDL_Rect score_rect;
+  SDL_Rect current_score_rect;
+} t_score;
+
 #define MX_RES(a) path_for_res(a)
 
 void init_sdl(App *app);
@@ -57,6 +66,7 @@ int show_menu(SDL_Renderer *renderer);
 void present_logo_scene();
 void add_hero_lives_textures(SDL_Renderer *renderer,  t_hearts *hearts);
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
+void show_score(SDL_Renderer *renderer, t_score *score);
 
 //Other
 char *mx_strnew(const int size);

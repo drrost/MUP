@@ -4,7 +4,7 @@
 void move_hero(t_hero *hero);
 
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
-
+void render_score(SDL_Renderer *renderer, t_score *score, int current_score, bool free);
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void new_player(App *app, t_entity *player) {
@@ -50,18 +50,22 @@ void new_player(App *app, t_entity *player) {
     //Start the music
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
+    t_score score;
+    show_score(app->renderer, &score);
 
     t_hearts hearts;
     add_hero_lives_textures(app->renderer, &hearts);
 
     int lives = 6;
-
+    int current_score = 0;
+    int prev_score = 0;
     // TODO: create notes state structure
     // t_notes notes = ....
 
     //animation loop
     while (!close_requested) {
         SDL_Event event;
+	prev_score = current_score;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -81,6 +85,10 @@ void new_player(App *app, t_entity *player) {
                             break;
                         case SDL_SCANCODE_SPACE:
                             lives--;
+			    break;
+		    case SDL_SCANCODE_TAB:
+                      current_score++;
+                      break;
                         default:
                             break;
                     }
@@ -116,7 +124,8 @@ void new_player(App *app, t_entity *player) {
 
         //draw the image to the window
         SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-
+	prev_score != current_score ? render_score(app->renderer, &score, current_score, true)
+	  : render_score(app->renderer, &score, current_score, false);
         render_hearts(app->renderer, &hearts, lives);
         render_hero(app->renderer, hero.texture, &hero);
 
@@ -139,6 +148,20 @@ void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero) {
         SDL_RenderCopyEx(renderer, texture, NULL, &(*hero).rect,
                          180.0f, NULL, SDL_FLIP_VERTICAL);
     }
+}
+
+void render_score(SDL_Renderer *renderer, t_score *score, int current_score, bool free){
+  if (free){
+    SDL_DestroyTexture(score->texture2);
+  }
+  //TTF_Font *font = TTF_OpenFont(RES("ARIAL.TTF"), 20);                                                                                                                       
+  char print[100];
+  sprintf(print, "%d", current_score);
+  SDL_Surface *to_print = TTF_RenderText_Solid(score->font, print, score->color);
+  score->texture2 = SDL_CreateTextureFromSurface(renderer, to_print);
+  SDL_FreeSurface(to_print);
+  SDL_RenderCopy(renderer, score->texture1, NULL, &score->score_rect);
+  SDL_RenderCopy(renderer, score->texture2, NULL, &score->current_score_rect);
 }
 
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives) {

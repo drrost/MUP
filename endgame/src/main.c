@@ -34,6 +34,7 @@ int main() {
 //    SDL_DestroyTexture(not->texture);
     SDL_DestroyRenderer(app->renderer);
     SDL_DestroyWindow(app->window);
+    TTF_Quit();
     SDL_Quit();
 
     return 0;
