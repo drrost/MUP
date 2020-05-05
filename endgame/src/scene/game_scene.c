@@ -1,4 +1,3 @@
-#include <fcntl.h>
 #include "header.h"
 
 void move_hero(t_hero *hero);
@@ -7,15 +6,7 @@ void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void new_player(App *app, t_entity *player) {
-    SDL_Surface *surface = IMG_Load(RES("player.png"));
     SDL_Surface *background = IMG_Load(RES("background.png"));
-
-    if (!surface) {
-        printf("error creating surface\n");
-        SDL_DestroyRenderer(app->renderer);
-        SDL_DestroyWindow(app->window);
-        SDL_Quit();
-    }
 
     if (!background) {
         printf("error creating surface\n");
@@ -24,17 +15,9 @@ void new_player(App *app, t_entity *player) {
         SDL_Quit();
     }
 
-    player->texture1 = SDL_CreateTextureFromSurface(app->renderer, surface);
-    player->background = SDL_CreateTextureFromSurface(app->renderer,
-                                                      background);
-    SDL_FreeSurface(surface);
+    player->background = SDL_CreateTextureFromSurface(
+            app->renderer, background);
     SDL_FreeSurface(background);
-    if (!player->texture1) {
-        printf("error creating texture: %s\n", SDL_GetError());
-        SDL_DestroyRenderer(app->renderer);
-        SDL_DestroyWindow(app->window);
-        SDL_Quit();
-    }
     if (!player->background) {
         printf("error creating texture: %s\n", SDL_GetError());
         SDL_DestroyRenderer(app->renderer);
@@ -43,19 +26,18 @@ void new_player(App *app, t_entity *player) {
     }
 
 //struct to hold the position and size of the sprite
-//    SDL_Rect dest;
     SDL_Rect bg;
 //get the dimesion of the rectangle
     SDL_QueryTexture(player->background, NULL, NULL, &bg.w, &bg.h);
     bg.w /= 1;
     bg.h /= 1;
 
-
 // Create hero position
     t_hero hero;
     hero.is_moving = 0;
 
-    SDL_QueryTexture(player->texture1, NULL, NULL, &hero.rect.w, &hero.rect.h);
+    hero.texture = IMG_LoadTexture(app->renderer, RES("player.png"));
+    SDL_QueryTexture(hero.texture, NULL, NULL, &hero.rect.w, &hero.rect.h);
     hero.rect.w /= 4;
     hero.rect.h /= 4;
     hero.rect.x = (WINDOW_WIDTH - hero.rect.w) / 2;
@@ -134,7 +116,7 @@ void new_player(App *app, t_entity *player) {
         SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
 
         render_hearts(app->renderer, &hearts, lives);
-        render_hero(app->renderer, player->texture1, &hero);
+        render_hero(app->renderer, hero.texture, &hero);
 
         // TODO: add notes rendering method
         // notes_render(renderer, notes_textures_array);
