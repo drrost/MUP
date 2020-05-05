@@ -3,6 +3,10 @@
 
 void move_hero(SDL_Rect *dest, t_hero *hero);
 
+void render_hearts(SDL_Renderer *renderer, const t_entity *player,
+                   const t_entity *game_window, SDL_Rect *bg, SDL_Rect *heart1,
+                   SDL_Rect *heart2, SDL_Rect *heart3, int lives);
+
 void path_for_res_old(const char *file_name, char *path) {
     char *paths[] = {
             "../MUP/endgame/resources/",
@@ -82,8 +86,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
 
     add_hero_lives_textures(app->renderer, game_window);
     SDL_Rect heart1 = {410, 10, 40, 40};
-    SDL_Rect heart2= {360, 10, 40, 40};
-    SDL_Rect heart3= {310, 10, 40, 40};
+    SDL_Rect heart2 = {360, 10, 40, 40};
+    SDL_Rect heart3 = {310, 10, 40, 40};
 
     int lives = 6;
 
@@ -111,8 +115,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                             hero.direction = RIGHT;
                             hero.is_moving = 1;
                             break;
-		    case SDL_SCANCODE_SPACE:
-		      lives--;
+                        case SDL_SCANCODE_SPACE:
+                            lives--;
                         default:
                             break;
                     }
@@ -142,46 +146,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-        SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-        switch (lives) {
-        case 6:
-          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart1);
-          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart2);
-          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
-          break;
-        case 5:
-          SDL_RenderCopy(app->renderer, game_window->texture2, NULL, &heart1);
-          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart2);
-          SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
-          break;
-	case 4:
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
-	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart2);
-	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
-	  break;
-	case 3:
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
-	  SDL_RenderCopy(app->renderer, game_window->texture2, NULL, &heart2);
-	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
-	  break;
-	case 2:
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart2);
-	  SDL_RenderCopy(app->renderer, game_window->texture1, NULL, &heart3);
-	  break;
-	case 1:
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart2);
-	  SDL_RenderCopy(app->renderer, game_window->texture2, NULL, &heart3);
-	  break;
-	case 0: //Game over
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart1);
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart2);
-	  SDL_RenderCopy(app->renderer, game_window->texture3, NULL, &heart3);
-	  break;
-	default:
-	  break;
-        }
+        render_hearts(app->renderer, player, game_window, &bg,
+                      &heart1, &heart2, &heart3, lives);
 
         if (hero.direction == RIGHT) {
             SDL_RenderCopy(app->renderer, player->texture1, NULL, &dest);
@@ -204,6 +170,51 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     //Mix_CloseAudio();
 }
 
+void render_hearts(SDL_Renderer *renderer, const t_entity *player,
+                   const t_entity *game_window, SDL_Rect *bg, SDL_Rect *heart1,
+                   SDL_Rect *heart2, SDL_Rect *heart3, int lives) {
+    SDL_RenderCopy(renderer, player->background, NULL, bg);
+    switch (lives) {
+        case 6:
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart1);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart2);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
+            break;
+        case 5:
+            SDL_RenderCopy(renderer, game_window->texture2, NULL, heart1);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart2);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
+            break;
+        case 4:
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart2);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
+            break;
+        case 3:
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
+            SDL_RenderCopy(renderer, game_window->texture2, NULL, heart2);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
+            break;
+        case 2:
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart2);
+            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
+            break;
+        case 1:
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart2);
+            SDL_RenderCopy(renderer, game_window->texture2, NULL, heart3);
+            break;
+        case 0: //Game over
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart2);
+            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart3);
+            break;
+        default:
+            break;
+    }
+}
+
 void move_hero(SDL_Rect *dest, t_hero *hero) {
     //give sprite initial velocity
     float x_vel = 0;
@@ -217,10 +228,10 @@ void move_hero(SDL_Rect *dest, t_hero *hero) {
     //collision detection with bounds
     if ((*hero).position.x <= 0) (*hero).position.x = 0;
     if ((*hero).position.y <= 0) (*hero).position.y = 0;
-    if ((*hero).position.x >= WINDOW_WIDTH - (*dest).w) (*hero).position.x =
-            WINDOW_WIDTH - (*dest).w;
-    if ((*hero).position.y >= WINDOW_HEIGHT - (*dest).h) (*hero).position.y =
-            WINDOW_HEIGHT - (*dest).h;
+    if ((*hero).position.x >= WINDOW_WIDTH - (*dest).w)
+        (*hero).position.x = WINDOW_WIDTH - (*dest).w;
+    if ((*hero).position.y >= WINDOW_HEIGHT - (*dest).h)
+        (*hero).position.y = WINDOW_HEIGHT - (*dest).h;
 
     //set the position in the struct
     (*dest).x = (*hero).position.x;
