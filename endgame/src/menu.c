@@ -1,4 +1,5 @@
 #include "header.h"
+#include <stdbool.h>
 
 void
 draw_text(SDL_Color color, int x, int y, char *text, SDL_Renderer *renderer,

@@ -17,7 +17,7 @@ void path_for_res_old(const char *file_name, char *path) {
     }
 }
 
-void new_player(App *app, t_entity *player, t_entity *game_window, t_notes *note) {
+void new_player(App *app, t_entity *player, t_entity *game_window) {
     char path[1024];
     path_for_res_old("player.png", path);
     SDL_Surface *surface = IMG_Load(path);
@@ -132,28 +132,6 @@ void new_player(App *app, t_entity *player, t_entity *game_window, t_notes *note
                     }
                     break;
             }
-
-            //forever loop noty i nenoty
-            bool on = 1;
-            int x;
-            while (on == 1) {
-                while (SDL_PollEvent(&event)) {
-                    x = event.motion.x;                     //позиция мышки по х
-                    int key = event.key.keysym.sym;
-                    if (event.type == SDL_QUIT)             //условия выхода с программы
-                        on = 0;
-                    if (event.type == SDL_KEYDOWN && key == SDLK_ESCAPE) //условия выхода с программы
-                        on = 0;
-                }
-                if (note->hp > 0)
-                    note_falling(note, x);
-                print_window(note);
-            }
-            SDL_FreeSurface(note->win_srfc);
-            SDL_DestroyWindow(note->window);
-            TTF_CloseFont(note->font);
-            TTF_Quit();
-            SDL_Quit();
         }
         //determine velocity
         x_vel = y_vel = 0;
