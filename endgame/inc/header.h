@@ -27,7 +27,7 @@ typedef struct s_entity {
     Mix_Music *level_song;
 } t_entity;
 
-typedef enum e_direction {
+enum e_direction {
     LEFT,
     RIGHT
 };
