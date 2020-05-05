@@ -43,6 +43,8 @@ typedef struct s_hero {
     SDL_Rect rect;
 }              t_hero;
 
+#define RES(a) path_for_res(a)
+
 void init_sdl(App *app);
 void load_music(t_entity *player);
 t_entity *create_note(SDL_Renderer *renderer, char *texture);

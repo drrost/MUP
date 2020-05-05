@@ -24,30 +24,30 @@ int show_menu(SDL_Renderer *renderer) {
         printf("TTF_Init: %s\n", TTF_GetError());
         exit(1);
     }
-    TTF_Font *font = TTF_OpenFont(path_for_res("ARIAL.TTF"), 25);
+    TTF_Font *font = TTF_OpenFont(RES("ARIAL.TTF"), 25);
     SDL_Color color = {0, 0, 255, 0};
 
     //Customize panels
     SDL_Rect button1 = {280, 100, 240, 50};
     SDL_Texture *button11 =
-            IMG_LoadTexture(renderer, path_for_res("empty.png"));
+            IMG_LoadTexture(renderer, RES("empty.png"));
     SDL_Rect button2 = {280, 165, 240, 50};
     SDL_Texture *button22 =
-            IMG_LoadTexture(renderer, path_for_res("empty.png"));
+            IMG_LoadTexture(renderer, RES("empty.png"));
     SDL_Rect button3 = {280, 230, 240, 50};
     SDL_Texture *button33 =
-            IMG_LoadTexture(renderer, path_for_res("empty.png"));
+            IMG_LoadTexture(renderer, RES("empty.png"));
     SDL_Rect button4 = {280, 295, 240, 50};
     SDL_Texture *button44 =
-            IMG_LoadTexture(renderer, path_for_res("empty.png"));
+            IMG_LoadTexture(renderer, RES("empty.png"));
     SDL_Rect button5 = {280, 360, 240, 50};
     SDL_Texture *button55 =
-            IMG_LoadTexture(renderer, path_for_res("empty.png"));
+            IMG_LoadTexture(renderer, RES("empty.png"));
 
     //background
     SDL_Rect backgroundRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
     SDL_Texture *imgBackground =
-            IMG_LoadTexture(renderer, path_for_res("empty_back.png"));
+            IMG_LoadTexture(renderer, RES("empty_back.png"));
 
     while (running) {
         color.r = 0;
