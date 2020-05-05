@@ -3,13 +3,10 @@
 
 void move_hero(t_hero *hero);
 
-void render_hearts(SDL_Renderer *renderer,
-                   const t_entity *game_window, SDL_Rect *heart1,
-                   SDL_Rect *heart2, SDL_Rect *heart3, int lives);
-
+void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
-void new_player(App *app, t_entity *player, t_entity *game_window) {
+void new_player(App *app, t_entity *player) {
     SDL_Surface *surface = IMG_Load(RES("player.png"));
     SDL_Surface *background = IMG_Load(RES("background.png"));
 
@@ -70,10 +67,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
 
-    add_hero_lives_textures(app->renderer, game_window);
-    SDL_Rect heart1 = {410, 10, 40, 40};
-    SDL_Rect heart2 = {360, 10, 40, 40};
-    SDL_Rect heart3 = {310, 10, 40, 40};
+    t_hearts hearts;
+    add_hero_lives_textures(app->renderer, &hearts);
 
     int lives = 6;
 
@@ -138,8 +133,7 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
         //draw the image to the window
         SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
 
-        render_hearts(app->renderer, game_window,
-                      &heart1, &heart2, &heart3, lives);
+        render_hearts(app->renderer, &hearts, lives);
         render_hero(app->renderer, player->texture1, &hero);
 
         // TODO: add notes rendering method
@@ -163,49 +157,47 @@ void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero) {
     }
 }
 
-void render_hearts(SDL_Renderer *renderer,
-                   const t_entity *game_window, SDL_Rect *heart1,
-                   SDL_Rect *heart2, SDL_Rect *heart3, int lives) {
+void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives) {
 
-    switch (lives) {
-        case 6:
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart1);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart2);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
-            break;
-        case 5:
-            SDL_RenderCopy(renderer, game_window->texture2, NULL, heart1);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart2);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
-            break;
-        case 4:
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart2);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
-            break;
-        case 3:
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
-            SDL_RenderCopy(renderer, game_window->texture2, NULL, heart2);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
-            break;
-        case 2:
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart2);
-            SDL_RenderCopy(renderer, game_window->texture1, NULL, heart3);
-            break;
-        case 1:
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart2);
-            SDL_RenderCopy(renderer, game_window->texture2, NULL, heart3);
-            break;
-        case 0: //Game over
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart1);
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart2);
-            SDL_RenderCopy(renderer, game_window->texture3, NULL, heart3);
-            break;
-        default:
-            break;
-    }
+  switch (lives) {
+  case 6:
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos1);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+    break;
+  case 5:
+    SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos1);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+    break;
+  case 4:
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos2);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+    break;
+  case 3:
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+    SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos2);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+    break;
+  case 2:
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
+    SDL_RenderCopy(renderer, hearts->full, NULL, &hearts->heart_pos3);
+    break;
+  case 1:
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
+    SDL_RenderCopy(renderer, hearts->half, NULL, &hearts->heart_pos3);
+    break;
+  case 0: //Game over
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos1);
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos2);
+    SDL_RenderCopy(renderer, hearts->empty, NULL, &hearts->heart_pos3);
+    break;
+  default:
+    break;
+  }
 }
 
 void move_hero(t_hero *hero) {

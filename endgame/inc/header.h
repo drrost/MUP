@@ -22,15 +22,22 @@
 #include <application.h>
 
 typedef struct s_entity {
-//    int x;
-//    int y;
-    SDL_Rect *rect;
-    SDL_Texture *texture1;
-  SDL_Texture *texture2;
-  SDL_Texture *texture3;
-    SDL_Texture *background;
-    Mix_Music *level_song;
+  // int x;
+  //int y;                                                                           
+  SDL_Rect *rect;
+  SDL_Texture *texture1;
+  SDL_Texture *background;
+  Mix_Music *level_song;
 } t_entity;
+
+typedef struct s_hearts {
+  SDL_Texture *full;
+  SDL_Texture *half;
+  SDL_Texture *empty;
+  SDL_Rect heart_pos1;
+  SDL_Rect heart_pos2;
+  SDL_Rect heart_pos3;
+} t_hearts;
 
 enum e_direction {
     LEFT,
@@ -56,10 +63,11 @@ void draw_text(SDL_Color color, int x, int y, char *text, SDL_Renderer *renderer
 
 // Scenes
 int scoreboard(SDL_Renderer *renderer);
-void new_player(App *app, t_entity *player, t_entity *game_window);
+void new_player(App *app, t_entity *player);
 int show_menu(SDL_Renderer *renderer);
 void present_logo_scene();
-t_entity add_hero_lives_textures(SDL_Renderer *renderer, t_entity *game_window);
+void add_hero_lives_textures(SDL_Renderer *renderer,  t_hearts *hearts);
+void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 
 //Other
 char *mx_strnew(const int size);
