@@ -13,8 +13,7 @@ void present_logo_scene() {
     //Customize panels
     SDL_Rect rc_logo = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
 
-    const char *path = path_for_res("logo.png");
-    SDL_Texture *logo = IMG_LoadTexture(renderer, path);
+    SDL_Texture *logo = IMG_LoadTexture(renderer, RES("logo.png"));
 
     while (1) {
         while (SDL_PollEvent(&event)) {
