@@ -67,12 +67,10 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     dest.w /= 4;
     dest.h /= 4;
 
-    //start sprite  in the center of screen
-    SDL_Point hero_position =
-            {(WINDOW_WIDTH - dest.w) / 2, (WINDOW_HEIGHT - dest.h) * 2};
-
 //keep track of which inputs are given
     t_hero hero;
+    hero.position.x = (WINDOW_WIDTH - dest.w) / 2;
+    hero.position.y = (WINDOW_WIDTH - dest.w) * 2;
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
@@ -144,20 +142,20 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
         }
 
         //update positions;
-        hero_position.x += x_vel / 60;
+        hero.position.x += x_vel / 60;
 
         //collision detection with bounds
-        if (hero_position.x <= 0) hero_position.x = 0;
-        if (hero_position.y <= 0) hero_position.y = 0;
-        if (hero_position.x >= WINDOW_WIDTH - dest.w) hero_position.x =
+        if (hero.position.x <= 0) hero.position.x = 0;
+        if (hero.position.y <= 0) hero.position.y = 0;
+        if (hero.position.x >= WINDOW_WIDTH - dest.w) hero.position.x =
                 WINDOW_WIDTH - dest.w;
-        if (hero_position.y >= WINDOW_HEIGHT - dest.h) hero_position.y =
+        if (hero.position.y >= WINDOW_HEIGHT - dest.h) hero.position.y =
                 WINDOW_HEIGHT - dest.h;
 
         //set the position in the struct
 //        dest = my_func(....);
-        dest.x = hero_position.x;
-        dest.y = hero_position.y;
+        dest.x = hero.position.x;
+        dest.y = hero.position.y;
 
         // TODO: Move hero rendering to a separate method
         //clear the window
