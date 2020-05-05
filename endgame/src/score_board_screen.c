@@ -15,10 +15,12 @@ int scoreboard(SDL_Renderer *renderer) {
 
 
     SDL_Rect backgroundRect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
-    SDL_Texture *imageBackground = IMG_LoadTexture(renderer, "resources/empty_back.png");
+    SDL_Texture *imageBackground =
+            IMG_LoadTexture(renderer, path_for_res("empty_back.png"));
 
     while(running) {
-    	int file = open("scoreboard/scoreboard.txt", O_RDWR | O_APPEND, S_IRUSR | S_IWUSR | S_IXUSR);
+    	int file = open(path_for_res("scoreboard.txt"),
+    	        O_RDWR | O_APPEND, S_IRUSR | S_IWUSR | S_IXUSR);
     	int status = 1;
     	int i = 0;
     	int y = 6;
