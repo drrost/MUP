@@ -51,7 +51,7 @@ typedef struct s_hero {
     SDL_Texture *texture;
 }              t_hero;
 
-#define RES(a) path_for_res(a)
+#define MX_RES(a) path_for_res(a)
 
 void init_sdl(App *app);
 void load_music(t_entity *player);

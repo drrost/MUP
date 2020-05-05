@@ -7,7 +7,7 @@ void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void new_player(App *app, t_entity *player) {
-    SDL_Surface *background = IMG_Load(RES("background.png"));
+    SDL_Surface *background = IMG_Load(MX_RES("background.png"));
 
     if (!background) {
         printf("error creating surface\n");
@@ -37,7 +37,7 @@ void new_player(App *app, t_entity *player) {
     t_hero hero;
     hero.is_moving = 0;
 
-    hero.texture = IMG_LoadTexture(app->renderer, RES("player.png"));
+    hero.texture = IMG_LoadTexture(app->renderer, MX_RES("player.png"));
     SDL_QueryTexture(hero.texture, NULL, NULL, &hero.rect.w, &hero.rect.h);
     hero.rect.w /= 4;
     hero.rect.h /= 4;
