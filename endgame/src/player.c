@@ -7,6 +7,8 @@ void render_hearts(SDL_Renderer *renderer,
                    const t_entity *game_window, SDL_Rect *heart1,
                    SDL_Rect *heart2, SDL_Rect *heart3, int lives);
 
+void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
+
 void path_for_res_old(const char *file_name, char *path) {
     char *paths[] = {
             "../MUP/endgame/resources/",
@@ -100,7 +102,6 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     //animation loop
     while (!close_requested) {
         SDL_Event event;
-        SDL_RendererFlip rotate = SDL_FLIP_VERTICAL;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -153,13 +154,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
 
         render_hearts(app->renderer, game_window,
                       &heart1, &heart2, &heart3, lives);
+        render_hero(app->renderer, player->texture1, &hero);
 
-        if (hero.direction == RIGHT) {
-            SDL_RenderCopy(app->renderer, player->texture1, NULL, &hero.rect);
-        } else {
-            SDL_RenderCopyEx(app->renderer, player->texture1, NULL, &hero.rect,
-                             180.0f, NULL, rotate);
-        }
         SDL_RenderPresent(app->renderer);
 
         // TODO: add notes positions recalculation
@@ -173,6 +169,15 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     }
     //Mix_FreeMusic(player->level_song);
     //Mix_CloseAudio();
+}
+
+void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero) {
+    if ((*hero).direction == RIGHT) {
+        SDL_RenderCopy(renderer, texture, NULL, &(*hero).rect);
+    } else {
+        SDL_RenderCopyEx(renderer, texture, NULL, &(*hero).rect,
+                         180.0f, NULL, SDL_FLIP_VERTICAL);
+    }
 }
 
 void render_hearts(SDL_Renderer *renderer,
