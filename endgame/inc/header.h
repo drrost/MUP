@@ -40,7 +40,7 @@ enum e_direction {
 typedef struct s_hero {
     enum e_direction direction;
     bool is_moving;
-    SDL_Point position;
+    SDL_Rect rect;
 }              t_hero;
 
 void init_sdl(App *app);

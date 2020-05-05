@@ -1,7 +1,7 @@
 #include <fcntl.h>
 #include "header.h"
 
-void move_hero(SDL_Rect *dest, t_hero *hero);
+void move_hero(t_hero *hero);
 
 void render_hearts(SDL_Renderer *renderer,
                    const t_entity *game_window, SDL_Rect *heart1,
@@ -63,20 +63,23 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     }
 
 //struct to hold the position and size of the sprite
-    SDL_Rect dest;
+//    SDL_Rect dest;
     SDL_Rect bg;
 //get the dimesion of the rectangle
     SDL_QueryTexture(player->background, NULL, NULL, &bg.w, &bg.h);
     bg.w /= 1;
     bg.h /= 1;
-    SDL_QueryTexture(player->texture1, NULL, NULL, &dest.w, &dest.h);
-    dest.w /= 4;
-    dest.h /= 4;
+
 
 // Create hero position
     t_hero hero;
-    hero.position.x = (WINDOW_WIDTH - dest.w) / 2;
-    hero.position.y = (WINDOW_WIDTH - dest.w) * 2;
+    hero.is_moving = 0;
+
+    SDL_QueryTexture(player->texture1, NULL, NULL, &hero.rect.w, &hero.rect.h);
+    hero.rect.w /= 4;
+    hero.rect.h /= 4;
+    hero.rect.x = (WINDOW_WIDTH - hero.rect.w) / 2;
+    hero.rect.y = (WINDOW_WIDTH - hero.rect.w) * 2;
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
@@ -139,7 +142,7 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
             }
         }
 
-        move_hero(&dest, &hero);
+        move_hero(&hero);
 
         // TODO: Move hero rendering to a separate method
         //clear the window
@@ -147,13 +150,14 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
 
         //draw the image to the window
         SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
+
         render_hearts(app->renderer, game_window,
                       &heart1, &heart2, &heart3, lives);
 
         if (hero.direction == RIGHT) {
-            SDL_RenderCopy(app->renderer, player->texture1, NULL, &dest);
+            SDL_RenderCopy(app->renderer, player->texture1, NULL, &hero.rect);
         } else {
-            SDL_RenderCopyEx(app->renderer, player->texture1, NULL, &dest,
+            SDL_RenderCopyEx(app->renderer, player->texture1, NULL, &hero.rect,
                              180.0f, NULL, rotate);
         }
         SDL_RenderPresent(app->renderer);
@@ -216,25 +220,21 @@ void render_hearts(SDL_Renderer *renderer,
     }
 }
 
-void move_hero(SDL_Rect *dest, t_hero *hero) {
+void move_hero(t_hero *hero) {
     //give sprite initial velocity
     float x_vel = 0;
-    if ((*hero).is_moving != 0) {
-        x_vel = (*hero).direction == LEFT ? -SCROLL_SPEED : SCROLL_SPEED;
+    if (hero->is_moving != 0) {
+        x_vel = hero->direction == LEFT ? -SCROLL_SPEED : SCROLL_SPEED;
     }
 
     //update positions;
-    (*hero).position.x += x_vel / 60;
+    hero->rect.x += x_vel / 60;
 
     //collision detection with bounds
-    if ((*hero).position.x <= 0) (*hero).position.x = 0;
-    if ((*hero).position.y <= 0) (*hero).position.y = 0;
-    if ((*hero).position.x >= WINDOW_WIDTH - (*dest).w)
-        (*hero).position.x = WINDOW_WIDTH - (*dest).w;
-    if ((*hero).position.y >= WINDOW_HEIGHT - (*dest).h)
-        (*hero).position.y = WINDOW_HEIGHT - (*dest).h;
-
-    //set the position in the struct
-    (*dest).x = (*hero).position.x;
-    (*dest).y = (*hero).position.y;
+    if (hero->rect.x <= 0) hero->rect.x = 0;
+    if (hero->rect.y <= 0) hero->rect.y = 0;
+    if (hero->rect.x >= WINDOW_WIDTH - hero->rect.w)
+        hero->rect.x = WINDOW_WIDTH - hero->rect.w;
+    if (hero->rect.y >= WINDOW_HEIGHT - hero->rect.h)
+        hero->rect.y = WINDOW_HEIGHT - hero->rect.h;
 }
