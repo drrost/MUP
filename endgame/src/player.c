@@ -71,11 +71,8 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     SDL_Point hero_position =
             {(WINDOW_WIDTH - dest.w) / 2, (WINDOW_HEIGHT - dest.h) * 2};
 
-
-
 //keep track of which inputs are given
-    int left = 0;
-    int right = 0;
+    t_hero hero;
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
@@ -106,12 +103,14 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                     switch (event.key.keysym.scancode) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
-                            left = 1;
+                            hero.is_moving = 1;
+                            hero.direction = LEFT;
                             flip = 1;
                             break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
-                            right = 1;
+                            hero.direction = RIGHT;
+                            hero.is_moving = 1;
                             flip = 0;
                             break;
                         default:
@@ -122,11 +121,11 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                     switch (event.key.keysym.scancode) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
-                            left = 0;
+                            hero.is_moving = 0;
                             break;;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
-                            right = 0;
+                            hero.is_moving = 0;
                             break;
                         default:
                             break;
@@ -140,16 +139,12 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
 
         //give sprite initial velocity
         float x_vel = 0;
-        float y_vel = 0;
-        //determine velocity
-        x_vel = 0;
-        y_vel = 0;
-        if (left && !right) x_vel = -SCROLL_SPEED;
-        if (right && !left) x_vel = SCROLL_SPEED;
+        if (hero.is_moving != 0) {
+            x_vel = hero.direction == LEFT ? -SCROLL_SPEED : SCROLL_SPEED;
+        }
 
         //update positions;
         hero_position.x += x_vel / 60;
-        hero_position.y += y_vel / 60;
 
         //collision detection with bounds
         if (hero_position.x <= 0) hero_position.x = 0;

@@ -27,6 +27,16 @@ typedef struct s_entity {
     Mix_Music *level_song;
 } t_entity;
 
+typedef enum e_direction {
+    LEFT,
+    RIGHT
+};
+
+typedef struct s_hero {
+    enum e_direction direction;
+    bool is_moving;
+}              t_hero;
+
 void init_sdl(App *app);
 void load_music(t_entity *player);
 t_entity *create_note(SDL_Renderer *renderer, char *texture);
