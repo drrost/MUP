@@ -223,9 +223,8 @@ void render_hearts(SDL_Renderer *renderer,
 void move_hero(t_hero *hero) {
     //give sprite initial velocity
     float x_vel = 0;
-    if (hero->is_moving != 0) {
+    if (hero->is_moving != 0)
         x_vel = hero->direction == LEFT ? -SCROLL_SPEED : SCROLL_SPEED;
-    }
 
     //update positions;
     hero->rect.x += x_vel / 60;
