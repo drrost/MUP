@@ -18,7 +18,7 @@ int main() {
         scoreboard(app->renderer);
     }
 
-    SDL_Delay(1000000);
+    // SDL_Delay(1000000);
 
 //    t_entity *not = malloc(sizeof(t_entity));
 
