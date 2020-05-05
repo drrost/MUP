@@ -101,6 +101,7 @@ SDL_Rect set_coordinate(SDL_Rect rct, int speed);
 void note_falling(t_notes *note);
 
 void show_score(SDL_Renderer *renderer, t_score *score);
+int show_about(SDL_Renderer *renderer);
 
 
 //Other

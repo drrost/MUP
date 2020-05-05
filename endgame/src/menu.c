@@ -28,19 +28,19 @@ int show_menu(SDL_Renderer *renderer) {
     SDL_Color color = {0, 0, 255, 0};
 
     //Customize panels
-    SDL_Rect button1 = {280, 100, 240, 50};
+    SDL_Rect button1 = {280, 80, 240, 100};
     SDL_Texture *button11 =
             IMG_LoadTexture(renderer, MX_RES("empty.png"));
-    SDL_Rect button2 = {280, 165, 240, 50};
+    SDL_Rect button2 = {280, 145, 240, 100};
     SDL_Texture *button22 =
             IMG_LoadTexture(renderer, MX_RES("empty.png"));
-    SDL_Rect button3 = {280, 230, 240, 50};
+    SDL_Rect button3 = {280, 210, 240, 100};
     SDL_Texture *button33 =
             IMG_LoadTexture(renderer, MX_RES("empty.png"));
-    SDL_Rect button4 = {280, 295, 240, 50};
+    SDL_Rect button4 = {280, 275, 240, 100};
     SDL_Texture *button44 =
             IMG_LoadTexture(renderer, MX_RES("empty.png"));
-    SDL_Rect button5 = {280, 360, 240, 50};
+    SDL_Rect button5 = {280, 340, 240, 100};
     SDL_Texture *button55 =
             IMG_LoadTexture(renderer, MX_RES("empty.png"));
 
@@ -89,41 +89,41 @@ int show_menu(SDL_Renderer *renderer) {
         SDL_RenderCopy(renderer, button44, NULL, &button4);
         SDL_RenderCopy(renderer, button55, NULL, &button5);
         if (index_menu == 1) {
-            color.g = 0;
+            color.r = 0;
             draw_text(color, 360, 110, "START", renderer, font);
-            color.g = 255;
+            color.r = 255;
             draw_text(color, 350, 175, "PLAYER", renderer, font);
             draw_text(color, 345, 240, "SCORES", renderer, font);
             draw_text(color, 370, 305, "QUIT", renderer, font);
             draw_text(color, 360, 370, "ABOUT", renderer, font);
         } else if (index_menu == 2) {
-            color.g = 0;
+            color.r = 0;
             draw_text(color, 350, 175, "PLAYER", renderer, font);
-            color.g = 255;
+            color.r = 255;
             draw_text(color, 345, 240, "SCORES", renderer, font);
             draw_text(color, 370, 305, "QUIT", renderer, font);
             draw_text(color, 360, 370, "ABOUT", renderer, font);
             draw_text(color, 360, 110, "START", renderer, font);
         } else if (index_menu == 3) {
-            color.g = 0;
+            color.r = 0;
             draw_text(color, 345, 240, "SCORES", renderer, font);
-            color.g = 255;
+            color.r = 255;
             draw_text(color, 370, 305, "QUIT", renderer, font);
             draw_text(color, 360, 370, "ABOUT", renderer, font);
             draw_text(color, 360, 110, "START", renderer, font);
             draw_text(color, 350, 175, "PLAYER", renderer, font);
         } else if (index_menu == 4) {
-            color.g = 0;
+            color.r = 0;
             draw_text(color, 370, 305, "QUIT", renderer, font);
-            color.g = 255;
+            color.r = 255;
             draw_text(color, 360, 370, "ABOUT", renderer, font);
             draw_text(color, 360, 110, "START", renderer, font);
             draw_text(color, 350, 175, "PLAYER", renderer, font);
             draw_text(color, 345, 240, "SCORES", renderer, font);
         } else if (index_menu == 5) {
-            color.g = 0;
+            color.r = 0;
             draw_text(color, 360, 370, "ABOUT", renderer, font);
-            color.g = 255;
+            color.r = 255;
             draw_text(color, 360, 110, "START", renderer, font);
             draw_text(color, 350, 175, "PLAYER", renderer, font);
             draw_text(color, 345, 240, "SCORES", renderer, font);
