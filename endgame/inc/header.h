@@ -49,6 +49,6 @@ const char *path_for_res(const char *file_name);
 void new_player(App *app, t_entity *player, t_entity *game_window);
 int show_menu(SDL_Renderer *renderer);
 void present_logo_scene();
-t_entity player_lives(App *app, t_entity *game_window);
+t_entity add_hero_lives_textures(SDL_Renderer *renderer, t_entity *game_window);
 
 #endif

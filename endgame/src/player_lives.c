@@ -1,8 +1,8 @@
 #include "header.h"
 
-t_entity player_lives(App *app, t_entity *game_window) {
-  //char path[1024];
-  //path_for_res("fullheart.PNG");
-  game_window->texture = IMG_LoadTexture(app->renderer, "../resources/fullheart.png");
+t_entity add_hero_lives_textures(
+        SDL_Renderer *renderer, t_entity *game_window) {
+  game_window->texture =
+          IMG_LoadTexture(renderer, path_for_res("fullheart.png"));
   return *game_window;
 }

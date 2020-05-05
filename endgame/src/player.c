@@ -69,7 +69,7 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     dest.w /= 4;
     dest.h /= 4;
 
-//keep track of which inputs are given
+// Create hero position
     t_hero hero;
     hero.position.x = (WINDOW_WIDTH - dest.w) / 2;
     hero.position.y = (WINDOW_WIDTH - dest.w) * 2;
@@ -80,7 +80,7 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
 
-    player_lives(app, game_window);
+    add_hero_lives_textures(app->renderer, game_window);
     SDL_Rect fullheart1 = {410, 10, 40, 40};
     SDL_Rect fullheart2 = {360, 10, 40, 40};
     SDL_Rect fullheart3 = {310, 10, 40, 40};
@@ -91,8 +91,6 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     //animation loop
     while (!close_requested) {
         SDL_Event event;
-        int flip;
-        float angle = 180.0f; //set the angle
         SDL_RendererFlip rotate = SDL_FLIP_VERTICAL;
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
@@ -105,13 +103,11 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                         case SDL_SCANCODE_LEFT:
                             hero.is_moving = 1;
                             hero.direction = LEFT;
-                            flip = 1;
                             break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
                             hero.direction = RIGHT;
                             hero.is_moving = 1;
-                            flip = 0;
                             break;
                         default:
                             break;
@@ -146,11 +142,11 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
         SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart1);
         SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart2);
         SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart3);
-        if (flip != 1) {
+        if (hero.direction == RIGHT) {
             SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
         } else {
             SDL_RenderCopyEx(app->renderer, player->texture, NULL, &dest,
-                             angle, NULL, rotate);
+                             180.0f, NULL, rotate);
         }
         SDL_RenderPresent(app->renderer);
 
