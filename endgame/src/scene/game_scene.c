@@ -7,7 +7,7 @@ void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
-void new_player(App *app, t_entity *player) {
+void new_player(App *app, t_entity *player, t_notes *note) {
     SDL_Surface *background = IMG_Load(MX_RES("background.png"));
 
     if (!background) {
@@ -62,6 +62,7 @@ void new_player(App *app, t_entity *player) {
     //animation loop
     while (!close_requested) {
         SDL_Event event;
+        note_falling(note);
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -106,6 +107,7 @@ void new_player(App *app, t_entity *player) {
         // MOVE
         //
         move_hero(&hero);
+        // print_notes(app, note);
         // TODO: add notes positions recalculation
         // notes_next(notes);
 
@@ -119,7 +121,7 @@ void new_player(App *app, t_entity *player) {
 
         render_hearts(app->renderer, &hearts, lives);
         render_hero(app->renderer, hero.texture, &hero);
-
+        print_notes(app, note);
         // TODO: add notes rendering method
         // notes_render(renderer, notes_textures_array);
 

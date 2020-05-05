@@ -7,7 +7,11 @@ int main() {
     App *app = get_application();
     init_sdl(app);
 
+
+//    t_entity *not = malloc(sizeof(t_entity));
     present_logo_scene();
+    show_menu(app->renderer);
+
     int scene = 6;
     while (scene == 3 || scene == 6 || scene == 5) {
         scene = show_menu(app->renderer);
@@ -19,7 +23,19 @@ int main() {
     }
     if (scene == 1) {
         t_entity *player = malloc(sizeof(t_entity));
-        new_player(app, player);
+        t_notes *note = (t_notes *)malloc(sizeof(t_notes));
+        create_notes(app, note);
+        note->nota.n_1.x = init_random(0, 700);  // рандомное начало для пилюль
+        note->nenota.n_1.x = init_random(0, 700);
+
+        note->nota.n_2.x = init_random(0, 700);
+        note->nenota.n_2.x = init_random(0, 700);
+
+        note->nota.n_3.x = init_random(0, 700);
+        note->nenota.n_3.x = init_random(0, 700);
+        note->step = 1;
+        note->hp = 3;
+        new_player(app, player, note);
     }
 
 
