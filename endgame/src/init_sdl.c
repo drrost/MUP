@@ -1,3 +1,6 @@
+//
+// Created by User on 03.05.2020.
+//
 #include "header.h"
 
 void init_sdl(App *app) {
@@ -7,9 +10,8 @@ void init_sdl(App *app) {
         exit(1);
     }
 
-    app->window = SDL_CreateWindow("Notes", SDL_WINDOWPOS_CENTERED,
-                                   SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH, 
-                                   WINDOW_HEIGHT, 0);
+    app->window = SDL_CreateWindow("Notes", SDL_WINDOWPOS_UNDEFINED,
+                                   SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     if (!app->window) {
         printf("Failed to open %d x %d window: %s\n",
                WINDOW_WIDTH, WINDOW_HEIGHT, SDL_GetError());
@@ -21,5 +23,4 @@ void init_sdl(App *app) {
         printf("Failed to create renderer: %s\n", SDL_GetError());
         exit(1);
     }
-
 }

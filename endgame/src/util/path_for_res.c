@@ -1,4 +1,10 @@
-#include "header.h"
+//
+// Created by Rostyslav Druzhchenko on 04.05.2020.
+//
+
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
 
 const char *path_for_res(const char *file_name) {
     static char path[1024];
