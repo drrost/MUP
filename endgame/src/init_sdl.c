@@ -9,7 +9,12 @@ void init_sdl(App *app) {
         printf("Couldn't initialize SDL: %s\n", SDL_GetError());
         exit(1);
     }
-
+    TTF_Init();
+    if (TTF_Init() == -1) {
+      printf("TTF_Init: %s\n", TTF_GetError());
+      exit(1);
+    }
+    
     app->window = SDL_CreateWindow("Notes", SDL_WINDOWPOS_UNDEFINED,
                                    SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     if (!app->window) {
