@@ -71,9 +71,7 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     SDL_Point hero_position =
             {(WINDOW_WIDTH - dest.w) / 2, (WINDOW_HEIGHT - dest.h) * 2};
 
-//give sprite initial velocity
-    float x_vel = 0;
-    float y_vel = 0;
+
 
 //keep track of which inputs are given
     int left = 0;
@@ -89,6 +87,9 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
     SDL_Rect fullheart1 = {410, 10, 40, 40};
     SDL_Rect fullheart2 = {360, 10, 40, 40};
     SDL_Rect fullheart3 = {310, 10, 40, 40};
+
+    // TODO: create notes state structure
+    // t_notes notes = ....
 
     //animation loop
     while (!close_requested) {
@@ -135,13 +136,14 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
             }
         }
 
-        // TODO: move to a separate method
-//        float x_pos = (WINDOW_WIDTH - dest.w) / 2;
-//        float y_pos = (WINDOW_HEIGHT - dest.h) * 2;
+        // TODO: move position calculation to a separate method
 
-
+        //give sprite initial velocity
+        float x_vel = 0;
+        float y_vel = 0;
         //determine velocity
-        x_vel = y_vel = 0;
+        x_vel = 0;
+        y_vel = 0;
         if (left && !right) x_vel = -SCROLL_SPEED;
         if (right && !left) x_vel = SCROLL_SPEED;
 
@@ -158,9 +160,11 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                 WINDOW_HEIGHT - dest.h;
 
         //set the position in the struct
-        dest.x = (int) hero_position.x;
-        dest.y = (int) hero_position.y;
+//        dest = my_func(....);
+        dest.x = hero_position.x;
+        dest.y = hero_position.y;
 
+        // TODO: Move hero rendering to a separate method
         //clear the window
         SDL_RenderClear(app->renderer);
 
@@ -169,7 +173,6 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
         SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart1);
         SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart2);
         SDL_RenderCopy(app->renderer, game_window->texture, NULL, &fullheart3);
-        //SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
         if (flip != 1) {
             SDL_RenderCopy(app->renderer, player->texture, NULL, &dest);
         } else {
@@ -177,6 +180,12 @@ void new_player(App *app, t_entity *player, t_entity *game_window) {
                              angle, NULL, rotate);
         }
         SDL_RenderPresent(app->renderer);
+
+        // TODO: add notes positions recalculation
+        // notes_next(notes);
+
+        // TODO: add notes rendering method
+        // notes_render(renderer, notes_textures_array);
 
         //wait 1/60th of a second
         SDL_Delay(1000 / 60);
