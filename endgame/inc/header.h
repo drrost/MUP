@@ -66,6 +66,10 @@ typedef struct s_score {
     SDL_Rect current_score_rect;
 }              t_score;
 
+typedef struct s_sprite {
+    SDL_Texture *texture;
+    SDL_Rect rect;
+}              t_sprite;
 
 #define MX_RES(a) path_for_res(a)
 

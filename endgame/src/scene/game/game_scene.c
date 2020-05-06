@@ -7,18 +7,14 @@ void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 void render_score(
         SDL_Renderer *renderer, t_score *score, int current_score, bool free);
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
-
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
-
-    SDL_Surface *background = IMG_Load(MX_RES("background.png"));
-    player->background =
-            SDL_CreateTextureFromSurface(app->renderer, background);
-    SDL_FreeSurface(background);
+    SDL_Texture *back_texture =
+            IMG_LoadTexture(app->renderer, MX_RES("background.png"));
 
 //struct to hold the position and size of the sprite
     SDL_Rect bg;
 //get the dimesion of the rectangle
-    SDL_QueryTexture(player->background, NULL, NULL, &bg.w, &bg.h);
+    SDL_QueryTexture(back_texture, NULL, NULL, &bg.w, &bg.h);
     bg.h /= 1;
     bg.w /= 1;
 
@@ -33,16 +29,13 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
 
-
     SDL_Surface *game_over = IMG_Load(MX_RES("game_over.png"));
-    SDL_Texture * gameover = SDL_CreateTextureFromSurface(app->renderer, game_over);
+    SDL_Texture *gameover =
+            SDL_CreateTextureFromSurface(app->renderer, game_over);
     SDL_FreeSurface(game_over);
     SDL_Surface *winwin = IMG_Load(MX_RES("you_win.png"));
-    SDL_Texture * win = SDL_CreateTextureFromSurface(app->renderer, winwin);
+    SDL_Texture *win = SDL_CreateTextureFromSurface(app->renderer, winwin);
     SDL_FreeSurface(winwin);
-
-    //t_score score;
-    //show_score(app->renderer, &score);
 
     t_hearts hearts;
     add_hero_lives_textures(app->renderer, &hearts);
@@ -50,8 +43,6 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     int lives = 6;
     int current_score = 0;
     int prev_score = 0;
-    // TODO: create notes state structure
-    // t_notes notes = ....
     t_score score;
     show_score(app->renderer, &score);
     //animation loop
@@ -120,22 +111,23 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-	if (lives <= 0) {
-	  SDL_RenderCopy(app->renderer, gameover, NULL, NULL);
-	  close_requested = 1;
+        SDL_RenderCopy(app->renderer, back_texture, NULL, &bg);
+
+        if (lives <= 0) {
+            SDL_RenderCopy(app->renderer, gameover, NULL, NULL);
+            close_requested = 1;
         } else if (current_score >= 100) {
-          SDL_RenderCopy(app->renderer, win, NULL, NULL);
-          close_requested = 1;
+            SDL_RenderCopy(app->renderer, win, NULL, NULL);
+            close_requested = 1;
         } else {
-	  SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-	  prev_score != current_score ? render_score(app->renderer, &score,
-						     current_score, true)
-	    : render_score(app->renderer, &score,
-			   current_score, false);
-	  render_hearts(app->renderer, &hearts, lives);
-	  render_hero(app->renderer, hero->texture, hero);
-	  print_notes(app, note);
-	}
+            prev_score != current_score ? render_score(app->renderer, &score,
+                                                       current_score, true)
+                                        : render_score(app->renderer, &score,
+                                                       current_score, false);
+            render_hearts(app->renderer, &hearts, lives);
+            render_hero(app->renderer, hero->texture, hero);
+            print_notes(app, note);
+        }
 
         SDL_RenderPresent(app->renderer);
 
