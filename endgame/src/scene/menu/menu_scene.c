@@ -26,6 +26,8 @@ int show_menu(SDL_Renderer *renderer) {
     }
     TTF_Font *font = TTF_OpenFont(MX_RES("ARIAL.TTF"), 25);
     SDL_Color color = {0, 0, 255, 0};
+    int grey = 100;
+    SDL_Color color_selected = {grey, grey, grey, 0};
 
     //Customize panels
     SDL_Rect button1 = {280, 80, 240, 100};
@@ -91,7 +93,7 @@ int show_menu(SDL_Renderer *renderer) {
         SDL_RenderCopy(renderer, button55, NULL, &button5);
         if (index_menu == 1) {
             color.r = 0;
-            draw_text(color, 360, 110, "START", renderer, font);
+            draw_text(color_selected, 360, 110, "START", renderer, font);
             color.r = 255;
             draw_text(color, 350, 175, "PLAYER", renderer, font);
             draw_text(color, 345, 240, "SCORES", renderer, font);
@@ -99,7 +101,7 @@ int show_menu(SDL_Renderer *renderer) {
             draw_text(color, 360, 370, "ABOUT", renderer, font);
         } else if (index_menu == 2) {
             color.r = 0;
-            draw_text(color, 350, 175, "PLAYER", renderer, font);
+            draw_text(color_selected, 350, 175, "PLAYER", renderer, font);
             color.r = 255;
             draw_text(color, 345, 240, "SCORES", renderer, font);
             draw_text(color, 370, 305, "QUIT", renderer, font);
@@ -107,7 +109,7 @@ int show_menu(SDL_Renderer *renderer) {
             draw_text(color, 360, 110, "START", renderer, font);
         } else if (index_menu == 3) {
             color.r = 0;
-            draw_text(color, 345, 240, "SCORES", renderer, font);
+            draw_text(color_selected, 345, 240, "SCORES", renderer, font);
             color.r = 255;
             draw_text(color, 370, 305, "QUIT", renderer, font);
             draw_text(color, 360, 370, "ABOUT", renderer, font);
@@ -115,7 +117,7 @@ int show_menu(SDL_Renderer *renderer) {
             draw_text(color, 350, 175, "PLAYER", renderer, font);
         } else if (index_menu == 4) {
             color.r = 0;
-            draw_text(color, 370, 305, "QUIT", renderer, font);
+            draw_text(color_selected, 370, 305, "QUIT", renderer, font);
             color.r = 255;
             draw_text(color, 360, 370, "ABOUT", renderer, font);
             draw_text(color, 360, 110, "START", renderer, font);
@@ -123,7 +125,7 @@ int show_menu(SDL_Renderer *renderer) {
             draw_text(color, 345, 240, "SCORES", renderer, font);
         } else if (index_menu == 5) {
             color.r = 0;
-            draw_text(color, 360, 370, "ABOUT", renderer, font);
+            draw_text(color_selected, 360, 370, "ABOUT", renderer, font);
             color.r = 255;
             draw_text(color, 360, 110, "START", renderer, font);
             draw_text(color, 350, 175, "PLAYER", renderer, font);
