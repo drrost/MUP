@@ -9,7 +9,7 @@ int init_random(int low, int high) {
 
 SDL_Rect set_coordinate(SDL_Rect rct, int speed) {
     // если больше 400у то начни с начала, двигайся со скоростю 1
-    rct.y = (rct.y > 500) ? 0 : rct.y + speed;
+    rct.y = ((rct.y + rct.h) >= 580) ? 0 : rct.y + speed;
     if (rct.y == 0)
         rct.x = init_random(0, 750);
     return (rct);
@@ -35,6 +35,14 @@ bool compare(SDL_Rect a, SDL_Rect b) {
         return 1;
     return 0;
 }
+
+// bool compare(SDL_Rect a, SDL_Rect b) {
+//     if (a.x < b.x + b.w 
+//         && a.x + a.w > b.x
+//         && a.y + a.h > b.y)
+//         return 1;
+//     return 0;
+// }
 
 // int hero_hp(t_notes *note, t_hero hero, int lives) {
 //     int hp = lives;

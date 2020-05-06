@@ -43,8 +43,8 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
 
     hero.texture = IMG_LoadTexture(app->renderer, MX_RES("player.png"));
     SDL_QueryTexture(hero.texture, NULL, NULL, &hero.rect.w, &hero.rect.h);
-    hero.rect.w /= 4;
-    hero.rect.h /= 4;
+    hero.rect.w /= 6;
+    hero.rect.h /= 6;
     hero.rect.x = (WINDOW_WIDTH - hero.rect.w) / 2;
     hero.rect.y = (WINDOW_WIDTH - hero.rect.w) * 2;
 
@@ -72,33 +72,37 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         note_falling(note);
         // if ((compare(hero.rect, note->nenota.n_1)) == 1) {
         //     if (lives > 0 && (note->nenota.n_1.y = 456))
-        //         current_score = prev_score + 1;
+        //         current_score++;
         // }
-
-
-        prev_score = current_score; 
-        // if (compare(hero.rect, note->nenota.n_1)) {
-        //     if (lives > 0 && (note->nenota.n_1.y = 456))
-        //         lives--;
+        prev_score = current_score;
+        // if (sqrt(pow((hero.rect - nenota.n_1), 2) + pow((y_player - y_item), 2) ) == 0) {
+        //     lives—;
         // }
-        // if (compare(hero.rect, note->nenota.n_2)) {
-        //     if (lives > 0 && (note->nenota.n_2.y = 456))
-        //         lives--;
+        // if (sqrt(pow((x_player - x_item), 2) + pow((y_player - y_item), 2) ) == 0) {
+        //     life—;
         // }
-        // if (compare(hero.rect, note->nenota.n_3))  {
-        //     if (lives > 0 && (note->nenota.n_3.y = 456))
-        //        lives--;
-        // }
+        if (compare(hero.rect, note->nenota.n_1)) {
+            if (lives > 0 && (note->nenota.n_1.y = 479))
+                lives--;
+        }
+        if (compare(hero.rect, note->nenota.n_2)) {
+            if (lives > 0 && (note->nenota.n_2.y = 479))
+                lives--;
+        }
+        if (compare(hero.rect, note->nenota.n_3))  {
+            if (lives > 0 && (note->nenota.n_3.y = 479))
+               lives--;
+        }
         if (compare(hero.rect, note->nota.n_1)) {
-            if ((note->nota.n_1.y = 456))
+            if ((note->nota.n_1.y = 479))
                 current_score++;
         }
         if (compare(hero.rect, note->nota.n_2)) {
-            if ((note->nota.n_2.y = 456))
+            if ((note->nota.n_2.y = 479))
                 current_score++;
         }
         if (compare(hero.rect, note->nota.n_3))  {
-            if ((note->nota.n_3.y = 456))
+            if ((note->nota.n_3.y = 479))
                 current_score++;
         }
         while (SDL_PollEvent(&event)) {

@@ -23,9 +23,9 @@ void create_notes(App *app, t_notes *note) {
             app->renderer, note->nenota.srf);
     SDL_FreeSurface(note->nota.srf);
     SDL_FreeSurface(note->nenota.srf);
-    SDL_QueryTexture(note->nota.texture, NULL, NULL, &note->nota.n_1.w,
-                     &note->nota.n_1.h);
-    SDL_QueryTexture(note->nenota.texture, NULL, NULL, &note->nenota.n_1.w,
+    SDL_QueryTexture(note->nota.texture, NULL, NULL, &(note->nota.n_1.w),
+                     &(note->nota.n_1.h));
+    SDL_QueryTexture(note->nenota.texture, NULL, NULL, &(note->nenota.n_1.w),
                      &note->nenota.n_1.h);
     SDL_QueryTexture(note->nota.texture, NULL, NULL, &note->nota.n_2.w,
                      &note->nota.n_2.h);
