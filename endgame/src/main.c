@@ -22,9 +22,9 @@ int main() {
     }
     if (scene == 1) {
         t_entity *player = malloc(sizeof(t_entity));
-        t_notes *note = (t_notes *)malloc(sizeof(t_notes));
+        t_notes *note = (t_notes *) malloc(sizeof(t_notes));
         create_notes(app, note);
-        note->nota.n_1.x = init_random(0, 700); 
+        note->nota.n_1.x = init_random(0, 700);
         note->nenota.n_1.x = init_random(0, 700);
 
         note->nota.n_2.x = init_random(0, 700);

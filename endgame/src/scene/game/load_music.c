@@ -3,7 +3,7 @@
 //
 #include "header.h"
 
-void load_music(t_entity *player){
+void load_music(t_entity *player) {
     //Initialize SDL mixer
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 

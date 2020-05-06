@@ -16,7 +16,7 @@ const char *path_for_res(const char *file_name) {
     char *paths[] = {
             "../MUP/endgame/resource/",
             "../resource/",
-            "./resource/" };
+            "./resource/"};
     for (int i = 0; i < 3; i++) {
         strcpy(path, paths[i]);
         strcat(path, file_name);
