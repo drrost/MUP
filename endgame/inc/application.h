@@ -15,3 +15,4 @@ typedef struct Application {
 } App;
 
 App *get_application();
+void destroy_application();

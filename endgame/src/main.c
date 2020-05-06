@@ -35,10 +35,9 @@ int main() {
         present_game_scene(app, player, note);
     }
 
-    SDL_DestroyRenderer(app->renderer);
-    SDL_DestroyWindow(app->window);
     TTF_Quit();
     SDL_Quit();
+    destroy_application();
 
     return 0;
 }

@@ -78,6 +78,7 @@ int show_menu(SDL_Renderer *renderer) {
                     SDL_DestroyTexture(button44);
                     SDL_DestroyTexture(button55);
                     SDL_DestroyTexture(imgBackground);
+                    TTF_CloseFont(font);
                     return index_menu;
                 }
             }

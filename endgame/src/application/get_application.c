@@ -12,3 +12,10 @@ App *get_application() {
     }
     return application;
 }
+
+void destroy_application() {
+    App *application = get_application();
+    SDL_DestroyRenderer(application->renderer);
+    SDL_DestroyWindow(application->window);
+    free(application);
+}
