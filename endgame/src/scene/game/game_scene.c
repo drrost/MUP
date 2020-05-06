@@ -7,18 +7,17 @@ void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 void render_score(
         SDL_Renderer *renderer, t_score *score, int current_score, bool free);
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
+
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
     SDL_Texture *back_texture =
             IMG_LoadTexture(app->renderer, MX_RES("background.png"));
 
-//struct to hold the position and size of the sprite
     SDL_Rect bg;
-//get the dimesion of the rectangle
     SDL_QueryTexture(back_texture, NULL, NULL, &bg.w, &bg.h);
     bg.h /= 1;
     bg.w /= 1;
 
-// Create hero position
+// Create hero
     t_level *level = create_level(app->renderer);
     t_hero *hero = level->hero;
     hero->is_moving = 0;
@@ -88,7 +87,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
                             hero->is_moving = 0;
-                            break;;
+                            break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
                             hero->is_moving = 0;
@@ -154,9 +153,9 @@ void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero) {
 
 void render_score(SDL_Renderer *renderer, t_score *score, int current_score,
                   bool free) {
-    if (free) {
+    if (free)
         SDL_DestroyTexture(score->texture2);
-    }
+
     char print[100];
     sprintf(print, "%d", current_score);
     SDL_Surface *to_print = TTF_RenderText_Solid(score->font, print,
@@ -225,5 +224,5 @@ void move_hero(t_hero *hero) {
     if (hero->rect.x >= WINDOW_WIDTH - hero->rect.w)
         hero->rect.x = WINDOW_WIDTH - hero->rect.w;
     if (hero->rect.y >= WINDOW_HEIGHT - hero->rect.h)
-        hero->rect.y = WINDOW_HEIGHT - hero->rect.h;
+        hero->rect.y = WINDOW_HEIGHT - hero->rect.h - 20;
 }
