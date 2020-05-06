@@ -1,8 +1,8 @@
 #include "header.h"
 
-int show_about(SDL_Renderer *renderer) {
+int show_players(SDL_Renderer *renderer) {
     SDL_Rect about_rect = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
-    SDL_Texture *img_about = IMG_LoadTexture(renderer, MX_RES("about.png"));
+    SDL_Texture *img_about = IMG_LoadTexture(renderer, MX_RES("players.png"));
 
     SDL_Event event;
     while (1) {

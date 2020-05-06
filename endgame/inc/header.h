@@ -66,6 +66,10 @@ typedef struct s_score {
     SDL_Rect current_score_rect;
 }              t_score;
 
+typedef struct s_sprite {
+    SDL_Texture *texture;
+    SDL_Rect rect;
+}              t_sprite;
 
 #define MX_RES(a) path_for_res(a)
 
@@ -93,6 +97,7 @@ SDL_Rect set_coordinate(SDL_Rect rct, int speed);
 void note_falling(t_notes *note);
 void show_score(SDL_Renderer *renderer, t_score *score);
 int show_about(SDL_Renderer *renderer);
+int show_players(SDL_Renderer *renderer);
 
 //Count parameters of hero
 int hero_hp(t_notes *note, t_hero hero, int lives);

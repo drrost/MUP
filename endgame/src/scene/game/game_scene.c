@@ -1,60 +1,42 @@
 #include <hero.h>
+#include <level.h>
 #include "header.h"
 
 void move_hero(t_hero *hero);
-
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
-
 void render_score(
         SDL_Renderer *renderer, t_score *score, int current_score, bool free);
-
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
-    SDL_Surface *background = IMG_Load(MX_RES("background.png"));
-
-    if (!background) {
-        printf("error creating surface\n");
-        SDL_DestroyRenderer(app->renderer);
-        SDL_DestroyWindow(app->window);
-        SDL_Quit();
-    }
-
-    player->background = SDL_CreateTextureFromSurface(
-            app->renderer, background);
-    SDL_FreeSurface(background);
-    if (!player->background) {
-        printf("error creating texture: %s\n", SDL_GetError());
-        SDL_DestroyRenderer(app->renderer);
-        SDL_DestroyWindow(app->window);
-        SDL_Quit();
-    }
+    SDL_Texture *back_texture =
+            IMG_LoadTexture(app->renderer, MX_RES("background.png"));
 
 //struct to hold the position and size of the sprite
     SDL_Rect bg;
 //get the dimesion of the rectangle
-    SDL_QueryTexture(player->background, NULL, NULL, &bg.w, &bg.h);
-    bg.w /= 1;
+    SDL_QueryTexture(back_texture, NULL, NULL, &bg.w, &bg.h);
     bg.h /= 1;
+    bg.w /= 1;
 
 // Create hero position
-    t_hero hero;
-    hero.is_moving = 0;
-
-    hero.texture = IMG_LoadTexture(app->renderer, MX_RES("player.png"));
-    SDL_QueryTexture(hero.texture, NULL, NULL, &hero.rect.w, &hero.rect.h);
-    hero.rect.w /= 6;
-    hero.rect.h /= 6;
-    hero.rect.x = (WINDOW_WIDTH - hero.rect.w) / 2;
-    hero.rect.y = (WINDOW_WIDTH - hero.rect.w) * 2;
+    t_level *level = create_level(app->renderer);
+    t_hero *hero = level->hero;
+    hero->is_moving = 0;
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
     //Start the music
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
-    t_score score;
-    show_score(app->renderer, &score);
+
+    SDL_Surface *game_over = IMG_Load(MX_RES("game_over.png"));
+    SDL_Texture *gameover =
+            SDL_CreateTextureFromSurface(app->renderer, game_over);
+    SDL_FreeSurface(game_over);
+    SDL_Surface *winwin = IMG_Load(MX_RES("you_win.png"));
+    SDL_Texture *win = SDL_CreateTextureFromSurface(app->renderer, winwin);
+    SDL_FreeSurface(winwin);
 
     t_hearts hearts;
     add_hero_lives_textures(app->renderer, &hearts);
@@ -62,46 +44,38 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     int lives = 6;
     int current_score = 0;
     int prev_score = 0;
-    // TODO: create notes state structure
-    // t_notes notes = ....
+    t_score score;
+    show_score(app->renderer, &score);
+
+    int ticks = 0;
 
     //animation loop
     while (!close_requested) {
         SDL_Event event;
 
         note_falling(note);
-        // if ((compare(hero.rect, note->nenota.n_1)) == 1) {
-        //     if (lives > 0 && (note->nenota.n_1.y = 456))
-        //         current_score++;
-        // }
         prev_score = current_score;
-        // if (sqrt(pow((hero.rect - nenota.n_1), 2) + pow((y_player - y_item), 2) ) == 0) {
-        //     lives—;
-        // }
-        // if (sqrt(pow((x_player - x_item), 2) + pow((y_player - y_item), 2) ) == 0) {
-        //     life—;
-        // }
-        if (compare(hero.rect, note->nenota.n_1)) {
+        if (compare(hero->rect, note->nenota.n_1)) {
             if (lives > 0 && (note->nenota.n_1.y = 479))
                 lives--;
         }
-        if (compare(hero.rect, note->nenota.n_2)) {
+        if (compare(hero->rect, note->nenota.n_2)) {
             if (lives > 0 && (note->nenota.n_2.y = 479))
                 lives--;
         }
-        if (compare(hero.rect, note->nenota.n_3))  {
+        if (compare(hero->rect, note->nenota.n_3))  {
             if (lives > 0 && (note->nenota.n_3.y = 479))
                lives--;
         }
-        if (compare(hero.rect, note->nota.n_1)) {
+        if (compare(hero->rect, note->nota.n_1)) {
             if ((note->nota.n_1.y = 479))
                 current_score++;
         }
-        if (compare(hero.rect, note->nota.n_2)) {
+        if (compare(hero->rect, note->nota.n_2)) {
             if ((note->nota.n_2.y = 479))
                 current_score++;
         }
-        if (compare(hero.rect, note->nota.n_3))  {
+        if (compare(hero->rect, note->nota.n_3))  {
             if ((note->nota.n_3.y = 479))
                 current_score++;
         }
@@ -114,13 +88,13 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                     switch (event.key.keysym.scancode) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
-                            hero.is_moving = 1;
-                            hero.direction = LEFT;
+                            hero->is_moving = 1;
+                            hero->direction = LEFT;
                             break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
-                            hero.direction = RIGHT;
-                            hero.is_moving = 1;
+                            hero->direction = RIGHT;
+                            hero->is_moving = 1;
                             break;
                         case SDL_SCANCODE_SPACE:
                             lives--;
@@ -136,15 +110,18 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                     switch (event.key.keysym.scancode) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
-                            hero.is_moving = 0;
+                            hero->is_moving = 0;
                             break;;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
-                            hero.is_moving = 0;
+                            hero->is_moving = 0;
                             break;
+                        case SDL_SCANCODE_Q:
+                            Mix_FreeMusic(player->level_song);
+                            destroy_level(&level);
+                            return;
                         default:
                             break;
-
                     }
                     break;
             }
@@ -152,7 +129,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
 
         // MOVE
         //
-        move_hero(&hero);
+        move_hero(hero);
 
         // RENDER
         //
@@ -160,23 +137,31 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-        SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-        prev_score != current_score ? render_score(app->renderer, &score,
-                                                   current_score, true)
-                                    : render_score(app->renderer, &score,
-                                                   current_score, false);
-        render_hearts(app->renderer, &hearts, lives);
-        render_hero(app->renderer, hero.texture, &hero);
-        print_notes(app, note, lives);
-
-        // TODO: add notes rendering method
-        // notes_render(renderer, notes_textures_array);
+        
+        if (lives <= 0) {
+            SDL_RenderCopy(app->renderer, gameover, NULL, NULL);
+            close_requested = 1;
+        } else if (current_score >= 100) {
+            SDL_RenderCopy(app->renderer, win, NULL, NULL);
+            close_requested = 1;
+        } else {
+            SDL_RenderCopy(app->renderer, back_texture, NULL, &bg);
+            prev_score != current_score ? render_score(app->renderer, &score,
+                                                       current_score, true)
+                                        : render_score(app->renderer, &score,
+                                                       current_score, false);
+            render_hearts(app->renderer, &hearts, lives);
+            render_hero(app->renderer, hero->texture, hero);
+            print_notes(app, note, lives);
+        }
 
         SDL_RenderPresent(app->renderer);
 
+        ticks++;
         //wait 1/60th of a second
         SDL_Delay(1000 / 60);
     }
+    SDL_Delay(5000);
     //Mix_FreeMusic(player->level_song);
     //Mix_CloseAudio();
 }

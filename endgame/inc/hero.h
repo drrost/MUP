@@ -18,3 +18,6 @@ typedef struct s_hero {
     SDL_Rect rect;
     SDL_Texture *texture;
 }              t_hero;
+
+t_hero *create_hero(SDL_Renderer *renderer);
+void destroy_hero(t_hero **hero);
