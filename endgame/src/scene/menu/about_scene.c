@@ -11,7 +11,8 @@ int show_about(SDL_Renderer *renderer) {
             if (event.type == SDL_KEYUP) {
                 if (event.key.keysym.sym == SDLK_ESCAPE 
                     || event.key.keysym.sym == SDLK_SPACE 
-                    || event.key.keysym.sym == SDLK_q) {
+                    || event.key.keysym.sym == SDLK_q
+                    || event.key.keysym.sym == SDLK_RETURN) {
                     return 6;
                 }
             }
