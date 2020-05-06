@@ -11,23 +11,9 @@ void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
 
     SDL_Surface *background = IMG_Load(MX_RES("background.png"));
-
-    if (!background) {
-        printf("error creating surface\n");
-        SDL_DestroyRenderer(app->renderer);
-        SDL_DestroyWindow(app->window);
-        SDL_Quit();
-    }
-
-    player->background = SDL_CreateTextureFromSurface(
-            app->renderer, background);
+    player->background =
+            SDL_CreateTextureFromSurface(app->renderer, background);
     SDL_FreeSurface(background);
-    if (!player->background) {
-        printf("error creating texture: %s\n", SDL_GetError());
-        SDL_DestroyRenderer(app->renderer);
-        SDL_DestroyWindow(app->window);
-        SDL_Quit();
-    }
 
 //struct to hold the position and size of the sprite
     SDL_Rect bg;
