@@ -73,7 +73,10 @@ int scoreboard(SDL_Renderer *renderer) {
                 if (event.key.keysym.sym == SDLK_LEFT) {
                     if (page > 0) page--;
                 }
-                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                if (event.key.keysym.sym == SDLK_ESCAPE 
+                    || event.key.keysym.sym == SDLK_SPACE 
+                    || event.key.keysym.sym == SDLK_q
+                    || event.key.keysym.sym == SDLK_RETURN) {
                     TTF_CloseFont(font);
                     return 6;
                 }

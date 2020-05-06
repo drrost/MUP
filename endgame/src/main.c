@@ -17,6 +17,8 @@ int main() {
         }
         if (scene == 5)
             scene = show_about(app->renderer);
+        if (scene == 2)
+            scene = show_players(app->renderer);
     }
     if (scene == 1) {
         t_entity *player = malloc(sizeof(t_entity));
