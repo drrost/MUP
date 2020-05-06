@@ -3,9 +3,7 @@
 
 #define WINDOW_WIDTH (800)
 #define WINDOW_HEIGHT (600)
-#define SCROLL_SPEED (300)
-#define NOTE_WIDTH (200)
-#define NOTE_HEIGHT (200)
+#define SCROLL_SPEED (1000)
 
 #include <sys/types.h>
 #include <sys/stat.h>
