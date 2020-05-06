@@ -1,6 +1,4 @@
-//
-// Created by User on 03.05.2020.
-//
+#include <hero.h>
 #include "header.h"
 
 int init_random(int low, int high) {
@@ -10,8 +8,8 @@ int init_random(int low, int high) {
 
 
 SDL_Rect set_coordinate(SDL_Rect rct, int speed) {
-    // если больше 600у то начни с начала, двигайся со скоростю 1
-    rct.y = (rct.y > 400) ? 0 : rct.y + speed;
+    // если больше 400у то начни с начала, двигайся со скоростю 1
+    rct.y = (rct.y > 500) ? 0 : rct.y + speed;
     if (rct.y == 0)
         rct.x = init_random(0, 750);
     return (rct);
@@ -20,6 +18,7 @@ SDL_Rect set_coordinate(SDL_Rect rct, int speed) {
 bool compare(SDL_Rect a, SDL_Rect b) {
     bool x = 0;
     bool y = 0;
+
     if (a.x <= b.x && a.x + a.w >= b.x)
         x = 1;
     if (a.x >= b.x && a.x + a.w <= b.x + b.w)
@@ -37,33 +36,43 @@ bool compare(SDL_Rect a, SDL_Rect b) {
     return 0;
 }
 
-// void is_catch_note(t_notes *note, t_entity *player, t_score *score) {
-// // 	if ((compare(note->player.n_1, note->nenota.n_1)) == 1) {
-// // 		if (note->hp > 0 && (note->nenota.n_1.y = 400))
-// // 			note->hp--;
-// // 	}
-// // 	if ((compare(note->player.n_1, note->nenota.n_2)) == 1) {
-// // 		if (note->hp > 0 && (note->nenota.n_2.y = 400))
-// // 			note->hp--;
-// // 	}
-// // 	if ((compare(note->player.n_1, note->nenota.n_3)) == 1)  {
-// // 		if (note->hp > 0 && (note->nenota.n_3.y = 400))
-// // 			note->hp--;
-// // 	}
+// int hero_hp(t_notes *note, t_hero hero, int lives) {
+//     int hp = lives;
 
-// 	if ((compare(note->player.n_1, note->nota.n_1)) == 1) {
-// 		if ((note->nota.n_1.y = 400))
-// 			score->score += 63;
+//     if (compare(hero.rect, note->nenota.n_1)) {
+// 		if (lives > 0 && (note->nenota.n_1.y = 456))
+// 			hp--;
 // 	}
-// 	if ((compare(note->player.n_1, note->nota.n_2)) == 1) {
-// 		if ((note->nota.n_2.y = 400))
-// 			note->score += 63;
+// 	if (compare(hero.rect, note->nenota.n_2)) {
+// 		if (lives > 0 && (note->nenota.n_2.y = 456))
+// 			hp--;
 // 	}
-// 	if ((compare(note->player.n_1, note->nota.n_3)) == 1)  {
-// 		if ((note->nota.n_3.y = 400))
-// 			note->score += 63;
-// 	}
+// 	if (compare(hero.rect, note->nenota.n_3))  {
+// 		if (lives > 0 && (note->nenota.n_3.y = 456))
+// 			hp--;
+//     }
+//     return hp;
 // }
+
+// int hero_score(t_notes *note, t_hero hero, int current_score) {
+//     int ochko = current_score;
+
+// 	if ((compare(hero.rect, note->nota.n_1)) == 1) {
+// 		if ((note->nota.n_1.y = 456))
+// 			ochko++;
+// 	}
+// 	if ((compare(hero.rect, note->nota.n_2)) == 1) {
+// 		if ((note->nota.n_2.y = 456))
+// 			ochko++;
+// 	}
+// 	if ((compare(hero.rect, note->nota.n_3)) == 1)  {
+// 		if ((note->nota.n_3.y = 456))
+// 			ochko++;
+// 	}
+//     return ochko;
+// }
+
+
 
 void note_falling(t_notes *note) {
     if (note->step == 1) {

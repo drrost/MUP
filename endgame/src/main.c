@@ -31,7 +31,6 @@ int main() {
         note->nota.n_3.x = init_random(0, 700);
         note->nenota.n_3.x = init_random(0, 700);
         note->step = 1;
-        note->hp = 3;
         present_game_scene(app, player, note);
     }
 

@@ -70,9 +70,37 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_Event event;
 
         note_falling(note);
+        // if ((compare(hero.rect, note->nenota.n_1)) == 1) {
+        //     if (lives > 0 && (note->nenota.n_1.y = 456))
+        //         current_score = prev_score + 1;
+        // }
 
-        prev_score = current_score;
 
+        prev_score = current_score; 
+        // if (compare(hero.rect, note->nenota.n_1)) {
+        //     if (lives > 0 && (note->nenota.n_1.y = 456))
+        //         lives--;
+        // }
+        // if (compare(hero.rect, note->nenota.n_2)) {
+        //     if (lives > 0 && (note->nenota.n_2.y = 456))
+        //         lives--;
+        // }
+        // if (compare(hero.rect, note->nenota.n_3))  {
+        //     if (lives > 0 && (note->nenota.n_3.y = 456))
+        //        lives--;
+        // }
+        if (compare(hero.rect, note->nota.n_1)) {
+            if ((note->nota.n_1.y = 456))
+                current_score++;
+        }
+        if (compare(hero.rect, note->nota.n_2)) {
+            if ((note->nota.n_2.y = 456))
+                current_score++;
+        }
+        if (compare(hero.rect, note->nota.n_3))  {
+            if ((note->nota.n_3.y = 456))
+                current_score++;
+        }
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -135,7 +163,8 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                                                    current_score, false);
         render_hearts(app->renderer, &hearts, lives);
         render_hero(app->renderer, hero.texture, &hero);
-        print_notes(app, note);
+        print_notes(app, note, lives);
+
         // TODO: add notes rendering method
         // notes_render(renderer, notes_textures_array);
 
