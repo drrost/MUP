@@ -160,6 +160,13 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_Delay(1000 / 60);
     }
     SDL_Delay(5000);
+    menu_callback(app);
+    SDL_DestroyTexture(back_texture);
+    SDL_DestroyTexture(hero->texture);
+    SDL_DestroyTexture(score.texture1);
+    SDL_DestroyTexture(score.texture2);
+    SDL_DestroyTexture(gameover);
+    SDL_DestroyTexture(win);
     //Mix_FreeMusic(player->level_song);
     //Mix_CloseAudio();
 }
