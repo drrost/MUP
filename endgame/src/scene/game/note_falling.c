@@ -36,14 +36,6 @@ bool compare(SDL_Rect a, SDL_Rect b) {
     return 0;
 }
 
-// bool compare(SDL_Rect a, SDL_Rect b) {
-//     if (a.x < b.x + b.w 
-//         && a.x + a.w > b.x
-//         && a.y + a.h > b.y)
-//         return 1;
-//     return 0;
-// }
-
 void note_falling(t_notes *note) {
     if (note->step == 1) {
         // is_catch_note(note);

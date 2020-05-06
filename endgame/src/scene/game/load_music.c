@@ -8,8 +8,9 @@ void load_music(t_entity *player) {
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
     //Load audio files
-    int n = 8;
+    int n = 9;
     char *tracks[] = {
+            "mp3/bgsa.mp3",
             "mp3/hl.mp3",
             "mp3/exp.mp3",
             "mp3/cck.mp3",
