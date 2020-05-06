@@ -33,23 +33,6 @@ int main() {
         note->nota.n_3.x = init_random(0, 700);
         note->nenota.n_3.x = init_random(0, 700);
 
-        // note->nota.n_1.w = 100;
-        // note->nota.n_1.h = 100;
-
-        // note->nenota.n_1.w = 100;
-        // note->nenota.n_1.w = 100;
-
-        // note->nota.n_2.w = 100;
-        // note->nota.n_2.h = 100;
-
-        // note->nenota.n_2.w = 100;
-        // note->nenota.n_2.h = 100;
-
-        // note->nota.n_3.w = 100;
-        // note->nota.n_3.w = 100;
-
-        // note->nenota.n_3.w = 100;
-        // note->nenota.n_3.w = 100;
         note->step = 1;
         present_game_scene(app, player, note);
     }
