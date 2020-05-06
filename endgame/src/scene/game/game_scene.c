@@ -11,11 +11,7 @@ void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
     SDL_Texture *back_texture =
             IMG_LoadTexture(app->renderer, MX_RES("background.png"));
-
-    SDL_Rect bg;
-    SDL_QueryTexture(back_texture, NULL, NULL, &bg.w, &bg.h);
-    bg.h /= 1;
-    bg.w /= 1;
+    SDL_Rect bg = {0, 0, 800, 600};
 
 // Create hero
     t_level *level = create_level(app->renderer);
@@ -116,7 +112,6 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                             break;
                         case SDL_SCANCODE_Q:
                             Mix_FreeMusic(player->level_song);
-                            destroy_level(&level);
                             return;
                         default:
                             break;
@@ -160,15 +155,13 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_Delay(1000 / 60);
     }
     SDL_Delay(5000);
-    menu_callback(app);
+    destroy_level(&level);
     SDL_DestroyTexture(back_texture);
-    SDL_DestroyTexture(hero->texture);
     SDL_DestroyTexture(score.texture1);
     SDL_DestroyTexture(score.texture2);
     SDL_DestroyTexture(gameover);
     SDL_DestroyTexture(win);
-    //Mix_FreeMusic(player->level_song);
-    //Mix_CloseAudio();
+    menu_callback(app);
 }
 
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero) {
