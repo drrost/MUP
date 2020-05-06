@@ -1,16 +1,15 @@
 #include <hero.h>
+#include <level.h>
 #include "header.h"
 
 void move_hero(t_hero *hero);
-
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
-
 void render_score(
         SDL_Renderer *renderer, t_score *score, int current_score, bool free);
-
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
+
     SDL_Surface *background = IMG_Load(MX_RES("background.png"));
 
     if (!background) {
@@ -34,19 +33,13 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     SDL_Rect bg;
 //get the dimesion of the rectangle
     SDL_QueryTexture(player->background, NULL, NULL, &bg.w, &bg.h);
-    bg.w /= 1;
     bg.h /= 1;
+    bg.w /= 1;
 
 // Create hero position
-    t_hero *hero = create_hero(app->renderer);
+    t_level *level = create_level(app->renderer);
+    t_hero *hero = level->hero;
     hero->is_moving = 0;
-
-//    hero->texture = IMG_LoadTexture(app->renderer, MX_RES("player.png"));
-    SDL_QueryTexture(hero->texture, NULL, NULL, &hero->rect.w, &hero->rect.h);
-    hero->rect.w /= 4;
-    hero->rect.h /= 4;
-    hero->rect.x = (WINDOW_WIDTH - hero->rect.w) / 2;
-    hero->rect.y = (WINDOW_WIDTH - hero->rect.w) * 2;
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
