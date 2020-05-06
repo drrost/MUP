@@ -46,6 +46,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     //Start the music
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
+
     t_score score;
     show_score(app->renderer, &score);
 
@@ -104,7 +105,8 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                             hero->is_moving = 0;
                             break;
                         case SDL_SCANCODE_Q:
-                            destroy_hero(&hero);
+                            Mix_FreeMusic(player->level_song);
+                            destroy_level(&level);
                             return;
                         default:
                             break;
