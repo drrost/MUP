@@ -38,15 +38,15 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     bg.h /= 1;
 
 // Create hero position
-    t_hero hero;
-    hero.is_moving = 0;
+    t_hero *hero = create_hero(app->renderer);
+    hero->is_moving = 0;
 
-    hero.texture = IMG_LoadTexture(app->renderer, MX_RES("player.png"));
-    SDL_QueryTexture(hero.texture, NULL, NULL, &hero.rect.w, &hero.rect.h);
-    hero.rect.w /= 4;
-    hero.rect.h /= 4;
-    hero.rect.x = (WINDOW_WIDTH - hero.rect.w) / 2;
-    hero.rect.y = (WINDOW_WIDTH - hero.rect.w) * 2;
+//    hero->texture = IMG_LoadTexture(app->renderer, MX_RES("player.png"));
+    SDL_QueryTexture(hero->texture, NULL, NULL, &hero->rect.w, &hero->rect.h);
+    hero->rect.w /= 4;
+    hero->rect.h /= 4;
+    hero->rect.x = (WINDOW_WIDTH - hero->rect.w) / 2;
+    hero->rect.y = (WINDOW_WIDTH - hero->rect.w) * 2;
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
@@ -82,13 +82,13 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                     switch (event.key.keysym.scancode) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
-                            hero.is_moving = 1;
-                            hero.direction = LEFT;
+                            hero->is_moving = 1;
+                            hero->direction = LEFT;
                             break;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
-                            hero.direction = RIGHT;
-                            hero.is_moving = 1;
+                            hero->direction = RIGHT;
+                            hero->is_moving = 1;
                             break;
                         case SDL_SCANCODE_SPACE:
                             lives--;
@@ -104,15 +104,17 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                     switch (event.key.keysym.scancode) {
                         case SDL_SCANCODE_A:
                         case SDL_SCANCODE_LEFT:
-                            hero.is_moving = 0;
+                            hero->is_moving = 0;
                             break;;
                         case SDL_SCANCODE_D:
                         case SDL_SCANCODE_RIGHT:
-                            hero.is_moving = 0;
+                            hero->is_moving = 0;
                             break;
+                        case SDL_SCANCODE_Q:
+                            destroy_hero(&hero);
+                            return;
                         default:
                             break;
-
                     }
                     break;
             }
@@ -120,7 +122,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
 
         // MOVE
         //
-        move_hero(&hero);
+        move_hero(hero);
 
         // RENDER
         //
@@ -134,10 +136,8 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                                     : render_score(app->renderer, &score,
                                                    current_score, false);
         render_hearts(app->renderer, &hearts, lives);
-        render_hero(app->renderer, hero.texture, &hero);
+        render_hero(app->renderer, hero->texture, hero);
         print_notes(app, note);
-        // TODO: add notes rendering method
-        // notes_render(renderer, notes_textures_array);
 
         SDL_RenderPresent(app->renderer);
 
