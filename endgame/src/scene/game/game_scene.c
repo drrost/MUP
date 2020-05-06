@@ -123,7 +123,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
 	if (lives <= 0) {
 	  SDL_RenderCopy(app->renderer, gameover, NULL, NULL);
 	  close_requested = 1;
-        } else if (current_score >= 20) {
+        } else if (current_score >= 100) {
           SDL_RenderCopy(app->renderer, win, NULL, NULL);
           close_requested = 1;
         } else {
