@@ -32,7 +32,7 @@ int main() {
         note->nenota.n_3.x = init_random(0, 700);
         note->step = 1;
         note->hp = 3;
-        new_player(app, player, note);
+        present_game_scene(app, player, note);
     }
 
     SDL_DestroyRenderer(app->renderer);

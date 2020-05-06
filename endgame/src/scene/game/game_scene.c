@@ -10,7 +10,7 @@ void render_score(
 
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
-void new_player(App *app, t_entity *player, t_notes *note) {
+void present_game_scene(App *app, t_entity *player, t_notes *note) {
     SDL_Surface *background = IMG_Load(MX_RES("background.png"));
 
     if (!background) {
