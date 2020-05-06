@@ -9,7 +9,9 @@ int show_about(SDL_Renderer *renderer) {
         SDL_RenderCopy(renderer, img_about, NULL, &about_rect);
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_KEYUP) {
-                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                if (event.key.keysym.sym == SDLK_ESCAPE 
+                    || event.key.keysym.sym == SDLK_SPACE 
+                    || event.key.keysym.sym == SDLK_q) {
                     return 6;
                 }
             }
