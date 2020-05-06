@@ -74,6 +74,7 @@ int scoreboard(SDL_Renderer *renderer) {
                     if (page > 0) page--;
                 }
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    TTF_CloseFont(font);
                     return 6;
                 }
             }
