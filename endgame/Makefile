@@ -14,9 +14,11 @@ SDL2_MIX = -I ${FRM_DIR}/SDL2_mixer.framework/Versions/A/Headers \
 
 NAME = endgame
 
+CFILES = src/scene/game/*.c src/scene/*.c
+
 all: install clean
 install:
-	cp src/scene/*.c src/*.c src/util/*.c src/application/*.c inc/*.h .
+	cp ${CFILES} src/*.c src/util/*.c src/application/*.c inc/*.h .
 	${CC} ${CFLAG} *.c -o ${NAME} ${SDL2} ${SDL2_IMAGE} ${SDL2_TTF} \
 	${SDL2_MIX} -rpath ${FRM_DIR}
 uninstall:
