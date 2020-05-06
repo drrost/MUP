@@ -77,6 +77,7 @@ void init_sdl(App *app);
 void load_music(t_entity *player);
 void cleanup(App *app);
 const char *path_for_res(const char *file_name);
+void menu_callback(App *app);
 void
 draw_text(SDL_Color color, int x, int y, char *text, SDL_Renderer *renderer,
           TTF_Font *font);
