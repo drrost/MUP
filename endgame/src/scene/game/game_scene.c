@@ -111,7 +111,6 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-        SDL_RenderCopy(app->renderer, back_texture, NULL, &bg);
 
         if (lives <= 0) {
             SDL_RenderCopy(app->renderer, gameover, NULL, NULL);
@@ -120,6 +119,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
             SDL_RenderCopy(app->renderer, win, NULL, NULL);
             close_requested = 1;
         } else {
+            SDL_RenderCopy(app->renderer, back_texture, NULL, &bg);
             prev_score != current_score ? render_score(app->renderer, &score,
                                                        current_score, true)
                                         : render_score(app->renderer, &score,
