@@ -12,19 +12,18 @@ SDL2_TTF = -I ${FRM_DIR}/SDL2_ttf.framework/Versions/A/Headers \
 SDL2_MIX = -I ${FRM_DIR}/SDL2_mixer.framework/Versions/A/Headers \
 	-F ${FRM_DIR}/ -framework SDL2_mixer
 
-NAME = endgame
+BINARY = endgame
 
 CFILES = src/scene/game/*.c src/scene/*.c src/*.c src/util/*.c \
 	src/application/*.c
 
-all: install clean
-install:
-	${CC} ${CFLAG} ${CFILES} -o ${NAME} ${SDL2} ${SDL2_IMAGE} ${SDL2_TTF} \
+all: ${BINARY}
+
+${BINARY}:
+	${CC} ${CFLAG} ${CFILES} -o ${BINARY} ${SDL2} ${SDL2_IMAGE} ${SDL2_TTF} \
 	${SDL2_MIX} -rpath ${FRM_DIR}
 uninstall:
-	rm -rf ${NAME}
+	rm -rf ${BINARY}
 clean:
-	rm -rf *.c
-	rm -rf *.h
-	rm -rf *.o
+	@rm -rf *.o
 reinstall: uninstall all
