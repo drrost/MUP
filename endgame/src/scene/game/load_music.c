@@ -8,9 +8,15 @@ void load_music(t_entity *player) {
     Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
     //Load audio files
-    int n = 4;
-    char *tracks[] = {"mp3/doowit.mp3", "mp3/jj.mp3", "mp3/h2h.mp3",
-                      "mp3/never-gonna-give-you-up.mp3"};
+    int n = 7;
+    char *tracks[] = {
+            "mp3/exp.mp3",
+            "mp3/cck.mp3",
+            "mp3/inah.mp3",
+            "mp3/doowit.mp3",
+            "mp3/jj.mp3",
+            "mp3/h2h.mp3",
+            "mp3/never-gonna-give-you-up.mp3"};
     int i = rand() % n;
     const char *path = path_for_res(tracks[i]);
 
