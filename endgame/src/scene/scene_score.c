@@ -5,6 +5,7 @@ void show_score(SDL_Renderer *renderer, t_score *score) {
     score->color.r = 255;
     score->color.g = 255;
     score->color.b = 255;
+    score->color.a = 0;
     SDL_Surface *message = TTF_RenderText_Solid(
             score->font, "Score", score->color);
     score->texture1 = SDL_CreateTextureFromSurface(renderer, message);

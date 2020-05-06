@@ -33,8 +33,16 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     load_music(player);
     Mix_PlayMusic(player->level_song, -1);
 
-    t_score score;
-    show_score(app->renderer, &score);
+
+    SDL_Surface *game_over = IMG_Load(MX_RES("game_over.png"));
+    SDL_Texture * gameover = SDL_CreateTextureFromSurface(app->renderer, game_over);
+    SDL_FreeSurface(game_over);
+    SDL_Surface *winwin = IMG_Load(MX_RES("you_win.png"));
+    SDL_Texture * win = SDL_CreateTextureFromSurface(app->renderer, winwin);
+    SDL_FreeSurface(winwin);
+
+    //t_score score;
+    //show_score(app->renderer, &score);
 
     t_hearts hearts;
     add_hero_lives_textures(app->renderer, &hearts);
@@ -44,7 +52,8 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     int prev_score = 0;
     // TODO: create notes state structure
     // t_notes notes = ....
-
+    t_score score;
+    show_score(app->renderer, &score);
     //animation loop
     while (!close_requested) {
         SDL_Event event;
@@ -111,20 +120,29 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_RenderClear(app->renderer);
 
         //draw the image to the window
-        SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
-        prev_score != current_score ? render_score(app->renderer, &score,
-                                                   current_score, true)
-                                    : render_score(app->renderer, &score,
-                                                   current_score, false);
-        render_hearts(app->renderer, &hearts, lives);
-        render_hero(app->renderer, hero->texture, hero);
-        print_notes(app, note);
+	if (lives <= 0) {
+	  SDL_RenderCopy(app->renderer, gameover, NULL, NULL);
+	  close_requested = 1;
+        } else if (current_score >= 20) {
+          SDL_RenderCopy(app->renderer, win, NULL, NULL);
+          close_requested = 1;
+        } else {
+	  SDL_RenderCopy(app->renderer, player->background, NULL, &bg);
+	  prev_score != current_score ? render_score(app->renderer, &score,
+						     current_score, true)
+	    : render_score(app->renderer, &score,
+			   current_score, false);
+	  render_hearts(app->renderer, &hearts, lives);
+	  render_hero(app->renderer, hero->texture, hero);
+	  print_notes(app, note);
+	}
 
         SDL_RenderPresent(app->renderer);
 
         //wait 1/60th of a second
         SDL_Delay(1000 / 60);
     }
+    SDL_Delay(5000);
     //Mix_FreeMusic(player->level_song);
     //Mix_CloseAudio();
 }
