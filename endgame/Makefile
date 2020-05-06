@@ -17,13 +17,13 @@ BINARY = endgame
 CFILES = src/scene/game/*.c src/scene/*.c src/*.c src/util/*.c \
 	src/application/*.c
 
-all: ${BINARY}
+all: uninstall ${BINARY}
 
 ${BINARY}:
 	${CC} ${CFLAG} ${CFILES} -o ${BINARY} ${SDL2} ${SDL2_IMAGE} ${SDL2_TTF} \
 	${SDL2_MIX} -rpath ${FRM_DIR}
 uninstall:
-	rm -rf ${BINARY}
+	@rm -rf ${BINARY}
 clean:
 	@rm -rf *.o
 reinstall: uninstall all
