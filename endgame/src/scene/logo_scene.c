@@ -14,11 +14,16 @@ void present_logo_scene() {
     while (1) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_KEYUP) {
-                if (event.key.keysym.sym == SDLK_ESCAPE ||
-                    event.key.keysym.sym == SDLK_RETURN ||
-                    event.key.keysym.sym == SDLK_SPACE) {
-                    SDL_DestroyTexture(logo);
-                    return;
+                switch (event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                    case SDLK_RETURN:
+                    case SDLK_SPACE:
+                        SDL_DestroyTexture(logo);
+                        return;
+                    case SDLK_q:
+                        exit(0);
+                    default:
+                        break;
                 }
             }
         }
