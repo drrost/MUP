@@ -10,8 +10,8 @@ int init_random(int low, int high) {
 
 
 SDL_Rect set_coordinate(SDL_Rect rct, int speed) {
-    rct.y = (rct.y > 400) ? 0 : rct.y +
-                                speed; // если больше 600у то начни с начала, двигайся со скоростю 1
+    // если больше 600у то начни с начала, двигайся со скоростю 1
+    rct.y = (rct.y > 400) ? 0 : rct.y + speed;
     if (rct.y == 0)
         rct.x = init_random(0, 750);
     return (rct);

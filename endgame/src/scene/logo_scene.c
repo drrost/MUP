@@ -7,12 +7,8 @@
 
 void present_logo_scene() {
     SDL_Event event;
-
     SDL_Renderer *renderer = get_application()->renderer;
-
-    //Customize panels
     SDL_Rect rc_logo = {0, 0, WINDOW_WIDTH, WINDOW_HEIGHT};
-
     SDL_Texture *logo = IMG_LoadTexture(renderer, MX_RES("logo.png"));
 
     while (1) {

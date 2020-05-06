@@ -7,8 +7,6 @@ int main() {
     App *app = get_application();
     init_sdl(app);
 
-
-//    t_entity *not = malloc(sizeof(t_entity));
     present_logo_scene();
 
     int scene = 6;

@@ -162,7 +162,6 @@ void render_score(SDL_Renderer *renderer, t_score *score, int current_score,
     if (free) {
         SDL_DestroyTexture(score->texture2);
     }
-    //TTF_Font *font = TTF_OpenFont(RES("ARIAL.TTF"), 20);
     char print[100];
     sprintf(print, "%d", current_score);
     SDL_Surface *to_print = TTF_RenderText_Solid(score->font, print,
