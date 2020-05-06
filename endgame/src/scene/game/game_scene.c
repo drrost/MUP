@@ -45,6 +45,9 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     int prev_score = 0;
     t_score score;
     show_score(app->renderer, &score);
+
+    int ticks = 0;
+
     //animation loop
     while (!close_requested) {
         SDL_Event event;
@@ -131,6 +134,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
 
         SDL_RenderPresent(app->renderer);
 
+        ticks++;
         //wait 1/60th of a second
         SDL_Delay(1000 / 60);
     }
