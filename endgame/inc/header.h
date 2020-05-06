@@ -44,11 +44,11 @@ typedef struct s_img {
 }              t_img;
 
 typedef struct s_notes {
-    SDL_Surface *txt;  // для подсчета чисел
-    // SDL_Surface *game_over;  // для game over
+    // SDL_Surface *txt;  // для подсчета чисел
+    // // SDL_Surface *game_over;  // для game over
 
-    int hp;
-    int score;
+    // int hp;
+    // int score;
     int step;
 
     t_img nota;
@@ -81,6 +81,8 @@ void
 draw_text(SDL_Color color, int x, int y, char *text, SDL_Renderer *renderer,
           TTF_Font *font);
 
+#include <hero.h>
+
 // Scenes
 int scoreboard(SDL_Renderer *renderer);
 bool compare(SDL_Rect a, SDL_Rect b);
@@ -89,13 +91,18 @@ int show_menu(SDL_Renderer *renderer);
 void present_logo_scene();
 void add_hero_lives_textures(SDL_Renderer *renderer, t_hearts *hearts);
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
-void print_notes(App *app, t_notes *note);
+void print_notes(App *app, t_notes *note, int lives);
 void create_notes(App *app, t_notes *note);
 SDL_Rect set_coordinate(SDL_Rect rct, int speed);
 void note_falling(t_notes *note);
 void show_score(SDL_Renderer *renderer, t_score *score);
 int show_about(SDL_Renderer *renderer);
 int show_players(SDL_Renderer *renderer);
+
+//Count parameters of hero
+int hero_hp(t_notes *note, t_hero hero, int lives);
+int hero_score(t_notes *note, t_hero hero, int current_score);
+
 
 //Other
 char *mx_strnew(const int size);
