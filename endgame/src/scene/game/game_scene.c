@@ -9,9 +9,8 @@ void render_score(
 void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
-    SDL_Texture *back_texture =
-            IMG_LoadTexture(app->renderer, MX_RES("background.png"));
-    SDL_Rect bg = {0, 0, 800, 600};
+    t_sprite *background = create_sprite(app->renderer, "background.png");
+    background->rect = (SDL_Rect) {0, 0, 800, 600};
 
 // Create hero
     t_level *level = create_level(app->renderer);
@@ -138,7 +137,8 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
             SDL_RenderCopy(app->renderer, win, NULL, NULL);
             close_requested = 1;
         } else {
-            SDL_RenderCopy(app->renderer, back_texture, NULL, &bg);
+            SDL_RenderCopy(app->renderer, background->texture, NULL,
+                    &background->rect);
             prev_score != current_score ? render_score(app->renderer, &score,
                                                        current_score, true)
                                         : render_score(app->renderer, &score,
@@ -156,7 +156,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     }
     SDL_Delay(5000);
     destroy_level(&level);
-    SDL_DestroyTexture(back_texture);
+    destroy_sprite(&background);
     SDL_DestroyTexture(score.texture1);
     SDL_DestroyTexture(score.texture2);
     SDL_DestroyTexture(gameover);

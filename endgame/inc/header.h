@@ -100,6 +100,9 @@ void show_score(SDL_Renderer *renderer, t_score *score);
 int show_about(SDL_Renderer *renderer);
 int show_players(SDL_Renderer *renderer);
 
+t_sprite *create_sprite(SDL_Renderer *renderer, const char *file_name);
+void destroy_sprite(t_sprite **sprite);
+
 //Count parameters of hero
 int hero_hp(t_notes *note, t_hero hero, int lives);
 int hero_score(t_notes *note, t_hero hero, int current_score);

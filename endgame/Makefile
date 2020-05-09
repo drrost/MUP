@@ -15,7 +15,8 @@ SDL2_MIX = -I ${FRM_DIR}/SDL2_mixer.framework/Versions/A/Headers \
 BINARY = endgame
 
 CFILES = src/scene/game/*.c src/scene/*.c src/*.c src/util/*.c \
-	src/application/*.c src/scene/menu/*.c src/scene/game/level/*.c
+	src/application/*.c src/scene/menu/*.c src/scene/game/level/*.c \
+	src/model/*.c
 
 all: uninstall ${BINARY}
 
