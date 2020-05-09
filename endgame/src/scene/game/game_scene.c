@@ -10,10 +10,8 @@ void render_hero(SDL_Renderer *renderer, SDL_Texture *texture, t_hero *hero);
 
 void present_game_scene(App *app, t_entity *player, t_notes *note) {
 
-// Create hero
     t_level *level = create_level(app->renderer);
     t_hero *hero = level->hero;
-    hero->is_moving = 0;
 
 //set to 1 when window close button is pressed
     int close_requested = 0;
@@ -45,7 +43,9 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         SDL_Event event;
 
         note_falling(note);
+
         prev_score = current_score;
+
         if (compare(hero->rect, note->nenota.n_1)) {
             if (lives > 0 && (note->nenota.n_1.y = 479))
                 lives--;
@@ -70,6 +70,7 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
             if ((note->nota.n_3.y = 479))
                 current_score++;
         }
+
         while (SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT:
@@ -89,9 +90,6 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
                             break;
                         case SDL_SCANCODE_SPACE:
                             lives--;
-                            break;
-                        case SDL_SCANCODE_TAB:
-                            current_score++;
                             break;
                         default:
                             break;
