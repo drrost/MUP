@@ -15,25 +15,24 @@ SDL_Rect set_coordinate(SDL_Rect rct, int speed) {
     return (rct);
 }
 
-bool intersect(SDL_Rect a, SDL_Rect b) {
+bool intersect(SDL_Rect rect1, SDL_Rect rect2) {
     bool x = 0;
     bool y = 0;
 
-    if (a.x <= b.x && a.x + a.w >= b.x)
+    if (rect1.x <= rect2.x && rect1.x + rect1.w >= rect2.x)
         x = 1;
-    if (a.x >= b.x && a.x + a.w <= b.x + b.w)
+    if (rect1.x >= rect2.x && rect1.x + rect1.w <= rect2.x + rect2.w)
         x = 1;
-    if (a.x <= b.x + b.w && a.x + a.w >= b.x + b.w)
+    if (rect1.x <= rect2.x + rect2.w && rect1.x + rect1.w >= rect2.x + rect2.w)
         x = 1;
-    if (a.y <= b.y && a.y + a.h >= b.y)
+    if (rect1.y <= rect2.y && rect1.y + rect1.h >= rect2.y)
         y = 1;
-    if (a.y >= b.y && a.y + a.h <= b.y + b.h)
+    if (rect1.y >= rect2.y && rect1.y + rect1.h <= rect2.y + rect2.h)
         y = 1;
-    if (a.y <= b.y + b.h && a.y + a.h >= b.y + b.h)
+    if (rect1.y <= rect2.y + rect2.h && rect1.y + rect1.h >= rect2.y + rect2.h)
         y = 1;
-    if (x == 1 && y == 1)
-        return 1;
-    return 0;
+
+    return x == 1 && y == 1;
 }
 
 void note_falling(t_notes *note) {
