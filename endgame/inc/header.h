@@ -77,7 +77,7 @@ draw_text(SDL_Color color, int x, int y, char *text, SDL_Renderer *renderer,
 
 // Scenes
 int scoreboard(SDL_Renderer *renderer);
-bool compare(SDL_Rect a, SDL_Rect b);
+bool intersect(SDL_Rect a, SDL_Rect b);
 void present_game_scene(App *app, t_entity *player, t_notes *note);
 int show_menu(SDL_Renderer *renderer);
 void present_logo_scene();

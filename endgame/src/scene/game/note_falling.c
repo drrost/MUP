@@ -15,7 +15,7 @@ SDL_Rect set_coordinate(SDL_Rect rct, int speed) {
     return (rct);
 }
 
-bool compare(SDL_Rect a, SDL_Rect b) {
+bool intersect(SDL_Rect a, SDL_Rect b) {
     bool x = 0;
     bool y = 0;
 

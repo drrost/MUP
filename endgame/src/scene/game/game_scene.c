@@ -48,27 +48,27 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
 //            lives--;
 //        }
 
-        if (compare(hero->rect, note->nenota.n_1)) {
+        if (intersect(hero->rect, note->nenota.n_1)) {
             if (lives > 0 && (note->nenota.n_1.y = 479))
                 lives--;
         }
-        if (compare(hero->rect, note->nenota.n_2)) {
+        if (intersect(hero->rect, note->nenota.n_2)) {
             if (lives > 0 && (note->nenota.n_2.y = 479))
                 lives--;
         }
-        if (compare(hero->rect, note->nenota.n_3))  {
+        if (intersect(hero->rect, note->nenota.n_3))  {
             if (lives > 0 && (note->nenota.n_3.y = 479))
                lives--;
         }
-        if (compare(hero->rect, note->nota.n_1)) {
+        if (intersect(hero->rect, note->nota.n_1)) {
             if ((note->nota.n_1.y = 479))
                 current_score++;
         }
-        if (compare(hero->rect, note->nota.n_2)) {
+        if (intersect(hero->rect, note->nota.n_2)) {
             if ((note->nota.n_2.y = 479))
                 current_score++;
         }
-        if (compare(hero->rect, note->nota.n_3))  {
+        if (intersect(hero->rect, note->nota.n_3))  {
             if ((note->nota.n_3.y = 479))
                 current_score++;
         }
