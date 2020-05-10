@@ -34,7 +34,6 @@ typedef struct s_hearts {
     SDL_Rect heart_pos3;
 }              t_hearts;
 
-
 typedef struct s_img {
     SDL_Texture *texture;
     SDL_Rect n_1;
@@ -43,8 +42,6 @@ typedef struct s_img {
 }              t_img;
 
 typedef struct s_notes {
-    int step;
-
     t_img nota;
     t_img nenota;
 }              t_notes;

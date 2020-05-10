@@ -37,16 +37,13 @@ bool compare(SDL_Rect a, SDL_Rect b) {
 }
 
 void note_falling(t_notes *note) {
-    if (note->step == 1) {
-        // is_catch_note(note);
 
-        note->nota.n_1 = set_coordinate(note->nota.n_1, 4);
-        note->nenota.n_1 = set_coordinate(note->nenota.n_1, 4);
+    note->nota.n_1 = set_coordinate(note->nota.n_1, 4);
+    note->nenota.n_1 = set_coordinate(note->nenota.n_1, 4);
 
-        note->nota.n_2 = set_coordinate(note->nota.n_2, 6);
-        note->nenota.n_2 = set_coordinate(note->nenota.n_2, 6);
+    note->nota.n_2 = set_coordinate(note->nota.n_2, 6);
+    note->nenota.n_2 = set_coordinate(note->nenota.n_2, 6);
 
-        note->nota.n_3 = set_coordinate(note->nota.n_3, 8);
-        note->nenota.n_3 = set_coordinate(note->nenota.n_3, 8);
-    }
+    note->nota.n_3 = set_coordinate(note->nota.n_3, 8);
+    note->nenota.n_3 = set_coordinate(note->nenota.n_3, 8);
 }
