@@ -36,7 +36,6 @@ typedef struct s_hearts {
 
 
 typedef struct s_img {
-    SDL_Surface *srf;
     SDL_Texture *texture;
     SDL_Rect n_1;
     SDL_Rect n_2;
@@ -88,7 +87,7 @@ void present_logo_scene();
 void add_hero_lives_textures(SDL_Renderer *renderer, t_hearts *hearts);
 void render_hearts(SDL_Renderer *renderer, t_hearts *hearts, int lives);
 void print_notes(App *app, t_notes *note, int lives);
-void create_notes(App *app, t_notes *note);
+void create_notes(SDL_Renderer *renderer, t_notes *note);
 SDL_Rect set_coordinate(SDL_Rect rct, int speed);
 void note_falling(t_notes *note);
 void show_score(SDL_Renderer *renderer, t_score *score);

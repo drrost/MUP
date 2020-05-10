@@ -32,7 +32,7 @@ void menu_callback(App *app) {
     if (scene == 1) {
         t_entity *player = malloc(sizeof(t_entity));
         t_notes *note = (t_notes *) malloc(sizeof(t_notes));
-        create_notes(app, note);
+        create_notes(app->renderer, note);
         note->nota.n_1.x = init_random(0, 700);
         note->nenota.n_1.x = init_random(0, 700);
 

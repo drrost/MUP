@@ -13,7 +13,6 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
     t_level *level = create_level(app->renderer);
     t_hero *hero = level->hero;
 
-//set to 1 when window close button is pressed
     int close_requested = 0;
     //Start the music
     load_music(player);
@@ -45,6 +44,9 @@ void present_game_scene(App *app, t_entity *player, t_notes *note) {
         note_falling(note);
 
         prev_score = current_score;
+//        if (intercects(hero->rect, note->nenota)) {
+//            lives--;
+//        }
 
         if (compare(hero->rect, note->nenota.n_1)) {
             if (lives > 0 && (note->nenota.n_1.y = 479))
